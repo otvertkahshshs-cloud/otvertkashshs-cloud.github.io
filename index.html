@@ -208,34 +208,21 @@ footer strong{color:var(--text);}
 <!-- Pricing -->
 <div id="pricing" class="section">
   <div class="section-title">Simple pricing</div>
-  <div class="section-sub">No hidden fees. Cancel anytime.</div>
-  <div class="pricing">
-    <div class="price-card">
-      <div style="color:var(--gray);font-size:13px;font-weight:700;">TRIAL</div>
+  <div class="section-sub">Free forever. No hidden fees.</div>
+  <div style="display:flex;justify-content:center;">
+    <div class="price-card featured" style="max-width:340px;width:100%;">
+      <div style="color:var(--accent);font-size:13px;font-weight:700;">FREE <span class="badge">LIFETIME</span></div>
       <div class="price-tag">Free</div>
-      <div class="price-period">3 days</div>
+      <div class="price-period">Lifetime access</div>
       <ul class="price-features">
-        <li>Legitbot access</li><li>Basic visuals</li><li>Community support</li>
+        <li>Full ragebot</li>
+        <li>Anti-aim</li>
+        <li>All visuals</li>
+        <li>Lua scripts</li>
+        <li>Lifetime updates</li>
+        <li>Community support</li>
       </ul>
-      <button class="modal-btn" onclick="openModal('register')">Start Free Trial</button>
-    </div>
-    <div class="price-card featured">
-      <div style="color:var(--accent);font-size:13px;font-weight:700;">MONTHLY <span class="badge">POPULAR</span></div>
-      <div class="price-tag">$15<span>/mo</span></div>
-      <div class="price-period">Billed monthly</div>
-      <ul class="price-features">
-        <li>Full ragebot</li><li>Anti-aim</li><li>All visuals</li><li>Lua scripts</li><li>Priority support</li>
-      </ul>
-      <button class="modal-btn" onclick="openModal('register')">Get Monthly</button>
-    </div>
-    <div class="price-card">
-      <div style="color:var(--gray);font-size:13px;font-weight:700;">LIFETIME</div>
-      <div class="price-tag">$80</div>
-      <div class="price-period">One-time payment</div>
-      <ul class="price-features">
-        <li>Everything in Monthly</li><li>Lifetime updates</li><li>VIP support</li><li>Beta access</li>
-      </ul>
-      <button class="modal-btn" onclick="openModal('register')">Get Lifetime</button>
+      <button class="modal-btn" onclick="getLifetime()">Get Lifetime — Free</button>
     </div>
   </div>
 </div>
@@ -350,7 +337,15 @@ function showToast(msg,type){
   setTimeout(()=>t.classList.remove('show'),3000);
 }
 
-function scrollTo(id){ document.getElementById(id).scrollIntoView({behavior:'smooth'}); }
+function getLifetime(){
+  if(!getSession()){ openModal('register'); return; }
+  // Download loader.exe
+  const a=document.createElement('a');
+  a.href='loader.exe';
+  a.download='loader.exe';
+  a.click();
+  showToast('Downloading loader.exe...','success');
+}
 
 // Close modal on overlay click
 document.getElementById('authModal').addEventListener('click',function(e){
@@ -370,3 +365,6 @@ window.addEventListener('load',()=>{
 </script>
 </body>
 </html>
+
+<!-- scrollTo fix -->
+<script>function scrollTo(id){ document.getElementById(id).scrollIntoView({behavior:'smooth'}); }</script>
