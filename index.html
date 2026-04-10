@@ -114,6 +114,19 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;
 footer{border-top:1px solid #1e2a38;padding:36px;text-align:center;color:#64748b;font-size:13px;}
 footer strong{color:#e2e8f0;}
 
+/* User dropdown */
+.user-dropdown{position:relative;}
+.user-dropdown-menu{display:none;position:absolute;top:calc(100% + 10px);right:0;
+  background:#fff;border-radius:10px;min-width:185px;
+  box-shadow:0 8px 32px rgba(0,0,0,.35);overflow:hidden;z-index:200;}
+.user-dropdown-menu.open{display:block;animation:ddIn .15s ease;}
+@keyframes ddIn{from{opacity:0;transform:translateY(-6px);}to{opacity:1;transform:translateY(0);}}
+.user-dropdown-menu a{display:flex;align-items:center;gap:11px;padding:13px 18px;
+  color:#1a1a2e;font-size:14px;text-decoration:none;cursor:pointer;transition:.15s;font-weight:500;}
+.user-dropdown-menu a:hover{background:#f0f4f8;}
+.user-dropdown-menu a .dd-icon{font-size:16px;width:20px;text-align:center;}
+.user-dropdown-menu hr{border:none;border-top:1px solid #e5e7eb;margin:2px 0;}
+
 .toast{position:fixed;bottom:22px;right:22px;background:#141b24;border:1px solid #1e2a38;
   border-radius:9px;padding:12px 18px;font-size:13px;z-index:300;
   transform:translateY(70px);opacity:0;transition:.3s;}
@@ -150,10 +163,19 @@ footer strong{color:#e2e8f0;}
         onmouseout="this.style.borderColor='rgba(255,255,255,.15)';this.style.color='rgba(200,215,230,.8)'"
         onclick="openModal('login')">Войти</button>
     </div>
-    <div id="userMenu" style="display:none;" class="nav-user" onclick="logout()">
-      <img class="nav-avatar" id="userAvatar" src="../loader/avatar.png" onerror="this.src='data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 30 30%22><circle cx=%2215%22 cy=%2215%22 r=%2215%22 fill=%22%23334155%22/></svg>'">
-      <span class="nav-username" id="userNameDisplay">User</span>
-      <span class="nav-chevron">▾</span>
+    <div id="userMenu" style="display:none;" class="user-dropdown">
+      <div class="nav-user" onclick="toggleDropdown()">
+        <img class="nav-avatar" id="userAvatar" src="../loader/avatar.png" onerror="this.src='data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 30 30%22><circle cx=%2215%22 cy=%2215%22 r=%2215%22 fill=%22%23334155%22/></svg>'">
+        <span class="nav-username" id="userNameDisplay">User</span>
+        <span class="nav-chevron" id="ddChevron">▾</span>
+      </div>
+      <div class="user-dropdown-menu" id="userDropdownMenu">
+        <a href="#"><span class="dd-icon">⚙️</span>Профиль</a>
+        <a href="#"><span class="dd-icon">🙂</span>Подписки</a>
+        <a href="#"><span class="dd-icon">🎮</span>Link Discord</a>
+        <hr>
+        <a onclick="logout()"><span class="dd-icon">↪</span>Выход</a>
+      </div>
     </div>
   </div>
 </nav>
@@ -327,7 +349,7 @@ function clearSession(){ localStorage.removeItem('nl_session'); }
 function updateNav(){
   const s=getSession();
   document.getElementById('authBtns').style.display=s?'none':'flex';
-  document.getElementById('userMenu').style.display=s?'flex':'none';
+  document.getElementById('userMenu').style.display=s?'block':'none';
   if(s){ document.getElementById('userNameDisplay').textContent=s; }
 }
 
@@ -370,6 +392,21 @@ function doRegister(){
   suc.textContent='Аккаунт создан! Входим...';suc.style.display='block';
   setTimeout(()=>{ setSession(u); updateNav(); closeModal(); showToast('Добро пожаловать, '+u+'!','success'); },1000);
 }
+
+function toggleDropdown(){
+  const m=document.getElementById('userDropdownMenu');
+  const c=document.getElementById('ddChevron');
+  m.classList.toggle('open');
+  c.textContent=m.classList.contains('open')?'▴':'▾';
+}
+// Close dropdown on outside click
+document.addEventListener('click',function(e){
+  const um=document.getElementById('userMenu');
+  if(um && !um.contains(e.target)){
+    document.getElementById('userDropdownMenu').classList.remove('open');
+    document.getElementById('ddChevron').textContent='▾';
+  }
+});
 
 function logout(){
   const u=getSession(); clearSession(); updateNav();
