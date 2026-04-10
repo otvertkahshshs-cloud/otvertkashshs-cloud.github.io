@@ -52,7 +52,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;background:rgba(10,14,20,.75
 .modal-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.7);backdrop-filter:blur(4px);z-index:200;align-items:center;justify-content:center;}
 .modal-overlay.active{display:flex;}
 .modal{background:#141b24;border:1px solid #1e2a38;border-radius:14px;padding:32px;width:100%;max-width:380px;position:relative;animation:mIn .2s ease;}
-@keyframes mIn{from{opacity:0;transform:scale(.95);}to{opacity:1;transform:scale(1);}}
+@keyframes mIn{from{opacity:0;transform:scale(.96) translateY(8px);}to{opacity:1;transform:scale(1) translateY(0);}}
 .modal h2{font-size:20px;font-weight:800;margin-bottom:5px;}
 .modal p{font-size:13px;color:#64748b;margin-bottom:22px;}
 .modal-close{position:absolute;top:14px;right:16px;background:none;border:none;color:#64748b;font-size:20px;cursor:pointer;}
@@ -83,8 +83,18 @@ footer strong{color:#e2e8f0;}
 .toast.error{border-color:#ef4444;color:#ef4444;}
 
 /* Profile page */
-#profilePage{display:none;position:fixed;inset:0;z-index:150;background:#0d1117;overflow-y:auto;}
+#profilePage{display:none;position:fixed;inset:0;z-index:150;background:#0d1117;overflow-y:auto;
+  opacity:0;transform:translateY(20px);transition:opacity .3s ease,transform .3s ease;}
 #profilePage.active{display:block;}
+#profilePage.visible{opacity:1;transform:translateY(0);}
+#profilePage.closing{opacity:0;transform:translateY(20px);}
+
+/* Product page overlay */
+#productPage{display:none;position:fixed;inset:0;z-index:150;background:#1c1c1c;overflow-y:auto;
+  opacity:0;transform:translateY(20px);transition:opacity .3s ease,transform .3s ease;}
+#productPage.active{display:block;}
+#productPage.visible{opacity:1;transform:translateY(0);}
+#productPage.closing{opacity:0;transform:translateY(20px);}
 .prof-banner{position:relative;height:160px;background:url('../loader/csgo.jpg') center/cover no-repeat;filter:brightness(.4);}
 .prof-avatar-wrap{position:absolute;bottom:-50px;left:50%;transform:translateX(-50%);width:100px;height:100px;cursor:pointer;}
 .prof-avatar-wrap img{width:100px;height:100px;border-radius:50%;object-fit:cover;border:3px solid #1e2a38;}
@@ -111,8 +121,6 @@ footer strong{color:#e2e8f0;}
 .prof-social{position:fixed;left:16px;top:50%;transform:translateY(-50%);display:flex;flex-direction:column;gap:14px;}
 .prof-social a{color:#4a5568;transition:.2s;}
 .prof-social a:hover{color:#00b4d8;}
-#productPage{display:none;position:fixed;inset:0;z-index:150;background:#1c1c1c;overflow-y:auto;}
-#productPage.active{display:block;}
 .pp-hero{position:relative;height:240px;overflow:hidden;display:flex;align-items:flex-end;padding-bottom:32px;padding-top:56px;}
 .pp-hero-bg{position:absolute;inset:0;background:url('../loader/csgo.jpg') center/cover no-repeat;filter:brightness(.5) saturate(.7);}
 .pp-hero-overlay{position:absolute;inset:0;background:linear-gradient(to right,rgba(20,14,8,.9) 0%,rgba(15,10,5,.6) 50%,rgba(0,0,0,.15) 100%);}
@@ -394,8 +402,17 @@ document.getElementById('authModal').addEventListener('click',function(e){ if(e.
 window.addEventListener('load', updateNav);
 function buyProduct(){ if(!getSession()){hideProduct();openModal('register');return;} showToast('Скачайте loader.exe из Release папки проекта','success'); }
 function getLifetime(){ if(!getSession()){openModal('register');return;} showToast('Скачайте loader.exe из Release папки проекта','success'); }
-function showProduct(){ document.getElementById('productPage').classList.add('active'); window.scrollTo(0,0); }
-function hideProduct(){ document.getElementById('productPage').classList.remove('active'); }
+function showProduct(){
+  const el=document.getElementById('productPage');
+  el.classList.add('active'); el.classList.remove('closing');
+  requestAnimationFrame(()=>requestAnimationFrame(()=>el.classList.add('visible')));
+  window.scrollTo(0,0);
+}
+function hideProduct(){
+  const el=document.getElementById('productPage');
+  el.classList.add('closing'); el.classList.remove('visible');
+  setTimeout(()=>{ el.classList.remove('active','closing'); },300);
+}
 function showProfile(){
   const s=getSession(); if(!s) return;
   document.getElementById('profName').textContent=s;
@@ -403,9 +420,16 @@ function showProfile(){
   if(users[s]) document.getElementById('profEmail').textContent=users[s].email||'';
   const savedAv=localStorage.getItem('nl_avatar_'+s);
   if(savedAv){ document.getElementById('profAvatar').src=savedAv; document.getElementById('userAvatar').src=savedAv; }
-  document.getElementById('profilePage').classList.add('active'); window.scrollTo(0,0);
+  const el=document.getElementById('profilePage');
+  el.classList.add('active'); el.classList.remove('closing');
+  requestAnimationFrame(()=>requestAnimationFrame(()=>el.classList.add('visible')));
+  window.scrollTo(0,0);
 }
-function hideProfile(){ document.getElementById('profilePage').classList.remove('active'); }
+function hideProfile(){
+  const el=document.getElementById('profilePage');
+  el.classList.add('closing'); el.classList.remove('visible');
+  setTimeout(()=>{ el.classList.remove('active','closing'); },300);
+}
 function changeAvatar(input){
   const file=input.files[0]; if(!file) return;
   const reader=new FileReader();
