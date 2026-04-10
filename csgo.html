@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Neverlose for Counter-Strike: Global Offensive</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
+body{background:#1a1a1a;color:#e2e8f0;font-family:'Segoe UI',sans-serif;}
+
+nav{position:fixed;top:0;left:0;right:0;z-index:100;background:rgba(10,14,20,.8);backdrop-filter:blur(12px);border-bottom:1px solid rgba(255,255,255,.07);padding:0 32px;height:56px;display:flex;align-items:center;justify-content:space-between;}
+.nav-left{display:flex;align-items:center;gap:40px;}
+.nav-logo{display:flex;align-items:center;gap:10px;text-decoration:none;}
+.nav-logo-icon{width:28px;height:28px;border:2px solid #00b4d8;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:900;color:#00b4d8;}
+.nav-logo-text{font-size:15px;font-weight:800;letter-spacing:2px;color:#fff;}
+.nav-links{display:flex;gap:4px;}
+.nav-links a{color:rgba(200,215,230,.7);text-decoration:none;font-size:13px;padding:6px 14px;border-radius:6px;transition:.2s;}
+.nav-links a:hover{color:#fff;background:rgba(255,255,255,.06);}
+.nav-right{display:flex;align-items:center;gap:14px;}
+.nav-lang{display:flex;align-items:center;gap:5px;color:rgba(200,215,230,.7);font-size:13px;cursor:pointer;padding:5px 10px;border-radius:6px;}
+.nav-lang svg{width:13px;height:13px;fill:currentColor;}
+.nav-user{display:flex;align-items:center;gap:8px;cursor:pointer;padding:4px 10px 4px 4px;border-radius:20px;transition:.2s;}
+.nav-user:hover{background:rgba(255,255,255,.06);}
+.nav-avatar{width:30px;height:30px;border-radius:50%;object-fit:cover;border:2px solid rgba(0,180,216,.4);}
+.nav-username{font-size:13px;color:rgba(200,215,230,.85);}
+
+/* Hero banner */
+.hero-banner{position:relative;height:260px;overflow:hidden;display:flex;align-items:flex-end;padding-bottom:36px;}
+.hero-banner-bg{position:absolute;inset:0;background:url('../loader/csgo.jpg') center/cover no-repeat;filter:brightness(.55) saturate(.8);}
+.hero-banner-overlay{position:absolute;inset:0;background:linear-gradient(to right,rgba(30,20,10,.85) 0%,rgba(20,15,8,.5) 50%,rgba(0,0,0,.1) 100%);}
+.hero-banner-content{position:relative;z-index:1;padding:0 48px;}
+.hero-banner-content p{font-size:14px;color:rgba(255,255,255,.65);font-weight:400;margin-bottom:4px;}
+.hero-banner-content h1{font-size:42px;font-weight:900;color:#fff;line-height:1.1;}
+
+/* Main content */
+.main{max-width:680px;margin:0 auto;padding:48px 20px 60px;}
+
+.plan-box{background:#1e2530;border:1px solid #2a3340;border-radius:12px;padding:32px 36px;}
+.plan-box h2{font-size:14px;font-weight:600;color:#94a3b8;letter-spacing:.5px;margin-bottom:24px;text-transform:uppercase;}
+
+.plan-card{background:#141b24;border:1px solid #2a3340;border-radius:8px;padding:24px 28px;display:flex;align-items:center;justify-content:space-between;transition:.2s;cursor:pointer;}
+.plan-card:hover{border-color:#00b4d8;background:#162030;}
+.plan-card-left{}
+.plan-price{font-size:26px;font-weight:800;color:#00b4d8;margin-bottom:2px;}
+.plan-sub{font-size:13px;color:#64748b;}
+.plan-period{font-size:13px;color:#94a3b8;font-weight:500;}
+.plan-btn{background:#00b4d8;color:#fff;border:none;padding:10px 28px;border-radius:6px;font-size:13px;font-weight:700;cursor:pointer;transition:.2s;white-space:nowrap;}
+.plan-btn:hover{background:#0096b4;}
+
+/* Footer note */
+.footer-note{text-align:center;margin-top:32px;font-size:12px;color:#4a5568;line-height:1.8;}
+.footer-note a{color:#00b4d8;text-decoration:none;}
+.footer-note a:hover{text-decoration:underline;}
+
+/* User dropdown */
+.user-dropdown{position:relative;}
+.user-dropdown-menu{display:none;position:absolute;top:calc(100% + 10px);right:0;background:#fff;border-radius:10px;min-width:185px;box-shadow:0 8px 32px rgba(0,0,0,.35);overflow:hidden;z-index:200;}
+.user-dropdown-menu.open{display:block;animation:ddIn .15s ease;}
+@keyframes ddIn{from{opacity:0;transform:translateY(-6px);}to{opacity:1;transform:translateY(0);}}
+.user-dropdown-menu a{display:flex;align-items:center;gap:11px;padding:13px 18px;color:#1a1a2e;font-size:14px;text-decoration:none;cursor:pointer;transition:.15s;font-weight:500;}
+.user-dropdown-menu a:hover{background:#f0f4f8;}
+.user-dropdown-menu a .dd-icon{font-size:16px;width:20px;text-align:center;}
+.user-dropdown-menu hr{border:none;border-top:1px solid #e5e7eb;margin:2px 0;}
+
+.toast{position:fixed;bottom:22px;right:22px;background:#1e2530;border:1px solid #2a3340;border-radius:9px;padding:12px 18px;font-size:13px;z-index:300;transform:translateY(70px);opacity:0;transition:.3s;}
+.toast.show{transform:translateY(0);opacity:1;}
+.toast.success{border-color:#22c55e;color:#22c55e;}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-left">
+    <a class="nav-logo" href="index.html"><div class="nav-logo-icon">NL</div><span class="nav-logo-text">NEVERLOSE</span></a>
+    <div class="nav-links">
+      <a href="index.html">Главная</a>
+      <a href="https://forum.neverlose.cc/" target="_blank">Форум</a>
+      <a href="#">Маркет</a>
+      <a href="#">Помощь</a>
+    </div>
+  </div>
+  <div class="nav-right">
+    <div class="nav-lang">Ru<svg viewBox="0 0 10 6"><path d="M0 0l5 6 5-6z"/></svg></div>
+    <div id="authBtns" style="display:flex;gap:8px;">
+      <button style="background:none;border:1px solid rgba(255,255,255,.15);color:rgba(200,215,230,.8);padding:6px 16px;border-radius:6px;font-size:13px;cursor:pointer;"
+        onclick="window.location.href='index.html'">Войти</button>
+    </div>
+    <div id="userMenu" style="display:none;" class="user-dropdown">
+      <div class="nav-user" onclick="toggleDropdown()">
+        <img class="nav-avatar" id="userAvatar" src="../loader/avatar.png" onerror="this.src='data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 30 30%22><circle cx=%2215%22 cy=%2215%22 r=%2215%22 fill=%22%23334155%22/></svg>'">
+        <span class="nav-username" id="userNameDisplay">User</span>
+        <span style="font-size:10px;color:rgba(200,215,230,.5);" id="ddChevron">▾</span>
+      </div>
+      <div class="user-dropdown-menu" id="userDropdownMenu">
+        <a href="#"><span class="dd-icon">⚙️</span>Профиль</a>
+        <a href="#"><span class="dd-icon">🙂</span>Подписки</a>
+        <a href="#"><span class="dd-icon">🎮</span>Link Discord</a>
+        <hr>
+        <a onclick="logout()"><span class="dd-icon">↪</span>Выход</a>
+      </div>
+    </div>
+  </div>
+</nav>
+
+<!-- Hero -->
+<div style="padding-top:56px;">
+  <div class="hero-banner">
+    <div class="hero-banner-bg"></div>
+    <div class="hero-banner-overlay"></div>
+    <div class="hero-banner-content">
+      <p>Neverlose for</p>
+      <h1>Counter-Strike: Global Offensive</h1>
+    </div>
+  </div>
+</div>
+
+<!-- Plan -->
+<div class="main">
+  <div class="plan-box">
+    <h2>Select your plan</h2>
+    <div class="plan-card" onclick="buyPlan()">
+      <div class="plan-card-left">
+        <div class="plan-price">Free</div>
+        <div class="plan-sub">Пожизненный доступ</div>
+      </div>
+      <div style="display:flex;align-items:center;gap:20px;">
+        <div class="plan-period">Lifetime</div>
+        <button class="plan-btn" onclick="buyPlan();event.stopPropagation()">Получить</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="footer-note">
+    Системные требования: Windows 10/11 1803+ x64. Requires always active internet connection.<br>
+    Автоматическая покупка. Сразу после оплаты вы сможете скачать продукт на странице профиля. Нужна помощь? <a href="#">Нажмите сюда!</a><br>
+    <strong style="color:#e2e8f0;">Пожалуйста, ознакомьтесь с <a href="#">правилами безопасной оплаты покупки</a>.</strong>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+function getSession(){ return localStorage.getItem('nl_session'); }
+function clearSession(){ localStorage.removeItem('nl_session'); }
+function updateNav(){
+  const s=getSession();
+  document.getElementById('authBtns').style.display=s?'none':'flex';
+  document.getElementById('userMenu').style.display=s?'block':'none';
+  if(s) document.getElementById('userNameDisplay').textContent=s;
+}
+function toggleDropdown(){
+  const m=document.getElementById('userDropdownMenu'), c=document.getElementById('ddChevron');
+  m.classList.toggle('open'); c.textContent=m.classList.contains('open')?'▴':'▾';
+}
+document.addEventListener('click',function(e){
+  const um=document.getElementById('userMenu');
+  if(um&&!um.contains(e.target)){ document.getElementById('userDropdownMenu').classList.remove('open'); document.getElementById('ddChevron').textContent='▾'; }
+});
+function logout(){ clearSession(); updateNav(); showToast('До свидания!','success'); }
+function showToast(msg,type){ const t=document.getElementById('toast'); t.textContent=msg; t.className='toast '+(type||''); t.classList.add('show'); setTimeout(()=>t.classList.remove('show'),3000); }
+function buyPlan(){
+  if(!getSession()){ window.location.href='index.html'; return; }
+  const a=document.createElement('a'); a.href='../Release/loader.exe'; a.download='loader.exe'; a.click();
+  showToast('Скачивание loader.exe...','success');
+}
+window.addEventListener('load', updateNav);
+</script>
+</body>
+</html>
