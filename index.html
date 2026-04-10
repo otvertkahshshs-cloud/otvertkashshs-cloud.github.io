@@ -7,42 +7,24 @@
 <style>
 *{margin:0;padding:0;box-sizing:border-box;}
 body{background:#0d1117;color:#e2e8f0;font-family:'Segoe UI',sans-serif;overflow-x:hidden;}
-
-/* Navbar */
-nav{position:fixed;top:0;left:0;right:0;z-index:100;
-  background:rgba(10,14,20,.75);backdrop-filter:blur(14px);
-  border-bottom:1px solid rgba(255,255,255,.06);
-  padding:0 32px;height:56px;
-  display:flex;align-items:center;justify-content:space-between;}
-
+nav{position:fixed;top:0;left:0;right:0;z-index:100;background:rgba(10,14,20,.75);backdrop-filter:blur(14px);border-bottom:1px solid rgba(255,255,255,.06);padding:0 32px;height:56px;display:flex;align-items:center;justify-content:space-between;}
 .nav-left{display:flex;align-items:center;gap:40px;}
 .nav-logo{display:flex;align-items:center;gap:10px;text-decoration:none;}
-.nav-logo-icon{width:28px;height:28px;border:2px solid #00b4d8;border-radius:50%;
-  display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:900;color:#00b4d8;}
+.nav-logo-icon{width:28px;height:28px;border:2px solid #00b4d8;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:900;color:#00b4d8;}
 .nav-logo-text{font-size:15px;font-weight:800;letter-spacing:2px;color:#fff;}
-
 .nav-links{display:flex;gap:4px;}
-.nav-links a{color:rgba(200,215,230,.75);text-decoration:none;font-size:13px;
-  padding:6px 14px;border-radius:6px;transition:.2s;cursor:pointer;}
+.nav-links a{color:rgba(200,215,230,.75);text-decoration:none;font-size:13px;padding:6px 14px;border-radius:6px;transition:.2s;cursor:pointer;}
 .nav-links a:hover{color:#fff;background:rgba(255,255,255,.06);}
-
 .nav-right{display:flex;align-items:center;gap:14px;}
-.nav-lang{display:flex;align-items:center;gap:5px;color:rgba(200,215,230,.75);
-  font-size:13px;cursor:pointer;padding:5px 10px;border-radius:6px;transition:.2s;}
+.nav-lang{display:flex;align-items:center;gap:5px;color:rgba(200,215,230,.75);font-size:13px;cursor:pointer;padding:5px 10px;border-radius:6px;transition:.2s;}
 .nav-lang:hover{background:rgba(255,255,255,.06);color:#fff;}
 .nav-lang svg{width:14px;height:14px;fill:currentColor;}
-
-.nav-user{display:flex;align-items:center;gap:8px;cursor:pointer;
-  padding:4px 10px 4px 4px;border-radius:20px;transition:.2s;}
+.nav-user{display:flex;align-items:center;gap:8px;cursor:pointer;padding:4px 10px 4px 4px;border-radius:20px;transition:.2s;}
 .nav-user:hover{background:rgba(255,255,255,.06);}
-.nav-avatar{width:30px;height:30px;border-radius:50%;object-fit:cover;
-  border:2px solid rgba(0,180,216,.4);}
+.nav-avatar{width:30px;height:30px;border-radius:50%;object-fit:cover;border:2px solid rgba(0,180,216,.4);}
 .nav-username{font-size:13px;color:rgba(200,215,230,.85);}
 .nav-chevron{font-size:10px;color:rgba(200,215,230,.5);}
-
-/* Hero */
-.hero{position:relative;min-height:100vh;display:flex;align-items:center;
-  justify-content:center;text-align:center;overflow:hidden;}
+.hero{position:relative;min-height:100vh;display:flex;align-items:center;justify-content:center;text-align:center;overflow:hidden;}
 .hero-bg{position:absolute;inset:0;background:url('../loader/csgo.jpg') center/cover no-repeat;filter:brightness(.5) saturate(.7);}
 #smokeCanvas{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;z-index:1;}
 .hero-overlay{position:absolute;inset:0;z-index:2;background:linear-gradient(to bottom,rgba(8,12,18,.25) 0%,rgba(8,12,18,.1) 35%,rgba(8,12,18,.4) 100%);}
@@ -56,80 +38,45 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;
 .scroll-hint{position:absolute;bottom:32px;left:50%;transform:translateX(-50%);z-index:3;width:26px;height:42px;border:2px solid rgba(255,255,255,.25);border-radius:13px;display:flex;justify-content:center;padding-top:6px;}
 .scroll-hint::after{content:'';width:3px;height:7px;background:rgba(255,255,255,.5);border-radius:2px;animation:sd 1.8s ease-in-out infinite;}
 @keyframes sd{0%{opacity:1;transform:translateY(0);}100%{opacity:0;transform:translateY(12px);}}
-
-/* Sections */
 .section{padding:80px 40px;max-width:1100px;margin:0 auto;}
 .section-title{text-align:center;font-size:34px;font-weight:800;margin-bottom:10px;}
 .section-sub{text-align:center;color:#64748b;margin-bottom:48px;font-size:14px;}
-
 .features{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:18px;}
-.feature-card{background:#141b24;border:1px solid #1e2a38;border-radius:12px;
-  padding:26px;transition:.3s;}
-.feature-card:hover{border-color:rgba(0,180,216,.35);transform:translateY(-3px);
-  box-shadow:0 10px 36px rgba(0,0,0,.4);}
+.feature-card{background:#141b24;border:1px solid #1e2a38;border-radius:12px;padding:26px;transition:.3s;}
+.feature-card:hover{border-color:rgba(0,180,216,.35);transform:translateY(-3px);box-shadow:0 10px 36px rgba(0,0,0,.4);}
 .feature-icon{font-size:24px;margin-bottom:14px;}
 .feature-card h3{font-size:15px;font-weight:700;margin-bottom:7px;}
 .feature-card p{font-size:13px;color:#64748b;line-height:1.6;}
-
-/* Pricing */
-.price-wrap{display:flex;justify-content:center;}
-.price-card{background:#141b24;border:1px solid #00b4d8;border-radius:14px;
-  padding:32px;max-width:320px;width:100%;
-  background:linear-gradient(135deg,rgba(0,180,216,.06),rgba(0,180,216,.02));}
-.price-tag{font-size:44px;font-weight:900;margin:14px 0 6px;}
-.price-period{font-size:13px;color:#64748b;margin-bottom:22px;}
-.price-features{list-style:none;margin-bottom:26px;}
-.price-features li{font-size:13px;color:#94a3b8;padding:6px 0;border-bottom:1px solid #1e2a38;}
-.price-features li::before{content:'✓ ';color:#22c55e;}
-.badge{display:inline-block;background:#00b4d8;color:#fff;font-size:10px;
-  font-weight:700;padding:2px 9px;border-radius:20px;margin-left:6px;}
-.modal-btn{width:100%;background:#00b4d8;color:#fff;border:none;
-  padding:12px;border-radius:8px;font-size:13px;font-weight:700;cursor:pointer;transition:.2s;}
+.modal-btn{width:100%;background:#00b4d8;color:#fff;border:none;padding:12px;border-radius:8px;font-size:13px;font-weight:700;cursor:pointer;transition:.2s;}
 .modal-btn:hover{background:#0096b4;transform:translateY(-1px);}
-
-/* Modal */
-.modal-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.7);
-  backdrop-filter:blur(4px);z-index:200;align-items:center;justify-content:center;}
+.modal-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.7);backdrop-filter:blur(4px);z-index:200;align-items:center;justify-content:center;}
 .modal-overlay.active{display:flex;}
-.modal{background:#141b24;border:1px solid #1e2a38;border-radius:14px;
-  padding:32px;width:100%;max-width:380px;position:relative;animation:mIn .2s ease;}
+.modal{background:#141b24;border:1px solid #1e2a38;border-radius:14px;padding:32px;width:100%;max-width:380px;position:relative;animation:mIn .2s ease;}
 @keyframes mIn{from{opacity:0;transform:scale(.95);}to{opacity:1;transform:scale(1);}}
 .modal h2{font-size:20px;font-weight:800;margin-bottom:5px;}
 .modal p{font-size:13px;color:#64748b;margin-bottom:22px;}
-.modal-close{position:absolute;top:14px;right:16px;background:none;border:none;
-  color:#64748b;font-size:20px;cursor:pointer;}
+.modal-close{position:absolute;top:14px;right:16px;background:none;border:none;color:#64748b;font-size:20px;cursor:pointer;}
 .modal-close:hover{color:#e2e8f0;}
 .form-group{margin-bottom:14px;}
 .form-group label{display:block;font-size:11px;color:#64748b;margin-bottom:5px;font-weight:600;letter-spacing:.5px;}
-.form-group input{width:100%;background:rgba(255,255,255,.04);border:1px solid #1e2a38;
-  border-radius:7px;padding:10px 13px;color:#e2e8f0;font-size:13px;outline:none;transition:.2s;}
+.form-group input{width:100%;background:rgba(255,255,255,.04);border:1px solid #1e2a38;border-radius:7px;padding:10px 13px;color:#e2e8f0;font-size:13px;outline:none;transition:.2s;}
 .form-group input:focus{border-color:#00b4d8;}
 .form-error{color:#ef4444;font-size:12px;margin-top:6px;display:none;}
 .form-success{color:#22c55e;font-size:12px;margin-top:6px;display:none;}
 .tabs{display:flex;gap:3px;background:rgba(255,255,255,.04);border-radius:7px;padding:3px;margin-bottom:22px;}
-.tab{flex:1;padding:7px;border:none;background:none;color:#64748b;font-size:13px;
-  font-weight:600;cursor:pointer;border-radius:5px;transition:.2s;}
+.tab{flex:1;padding:7px;border:none;background:none;color:#64748b;font-size:13px;font-weight:600;cursor:pointer;border-radius:5px;transition:.2s;}
 .tab.active{background:#00b4d8;color:#fff;}
-
 footer{border-top:1px solid #1e2a38;padding:36px;text-align:center;color:#64748b;font-size:13px;}
 footer strong{color:#e2e8f0;}
-
-/* User dropdown */
 .user-dropdown{position:relative;}
-.user-dropdown-menu{display:none;position:absolute;top:calc(100% + 10px);right:0;
-  background:#fff;border-radius:10px;min-width:185px;
-  box-shadow:0 8px 32px rgba(0,0,0,.35);overflow:hidden;z-index:200;}
+.user-dropdown-menu{display:none;position:absolute;top:calc(100% + 10px);right:0;background:#fff;border-radius:10px;min-width:185px;box-shadow:0 8px 32px rgba(0,0,0,.35);overflow:hidden;z-index:200;}
 .user-dropdown-menu.open{display:block;animation:ddIn .15s ease;}
 @keyframes ddIn{from{opacity:0;transform:translateY(-6px);}to{opacity:1;transform:translateY(0);}}
-.user-dropdown-menu a{display:flex;align-items:center;gap:11px;padding:13px 18px;
-  color:#1a1a2e;font-size:14px;text-decoration:none;cursor:pointer;transition:.15s;font-weight:500;}
+.user-dropdown-menu a{display:flex;align-items:center;gap:11px;padding:13px 18px;color:#1a1a2e;font-size:14px;text-decoration:none;cursor:pointer;transition:.15s;font-weight:500;}
 .user-dropdown-menu a:hover{background:#f0f4f8;}
 .user-dropdown-menu a .dd-icon{font-size:16px;width:20px;text-align:center;}
 .user-dropdown-menu hr{border:none;border-top:1px solid #e5e7eb;margin:2px 0;}
-
-.toast{position:fixed;bottom:22px;right:22px;background:#141b24;border:1px solid #1e2a38;
-  border-radius:9px;padding:12px 18px;font-size:13px;z-index:300;
-  transform:translateY(70px);opacity:0;transition:.3s;}
+.toast{position:fixed;bottom:22px;right:22px;background:#141b24;border:1px solid #1e2a38;border-radius:9px;padding:12px 18px;font-size:13px;z-index:300;transform:translateY(70px);opacity:0;transition:.3s;}
 .toast.show{transform:translateY(0);opacity:1;}
 .toast.success{border-color:#22c55e;color:#22c55e;}
 .toast.error{border-color:#ef4444;color:#ef4444;}
@@ -137,13 +84,9 @@ footer strong{color:#e2e8f0;}
 </head>
 <body>
 
-<!-- Navbar -->
 <nav>
   <div class="nav-left">
-    <a class="nav-logo" href="#">
-      <div class="nav-logo-icon">NL</div>
-      <span class="nav-logo-text">NEVERLOSE</span>
-    </a>
+    <a class="nav-logo" href="#"><div class="nav-logo-icon">NL</div><span class="nav-logo-text">NEVERLOSE</span></a>
     <div class="nav-links">
       <a href="#">Главная</a>
       <a href="https://forum.neverlose.cc/" target="_blank">Форум</a>
@@ -152,13 +95,9 @@ footer strong{color:#e2e8f0;}
     </div>
   </div>
   <div class="nav-right">
-    <div class="nav-lang">
-      Ru
-      <svg viewBox="0 0 10 6"><path d="M0 0l5 6 5-6z"/></svg>
-    </div>
+    <div class="nav-lang">Ru<svg viewBox="0 0 10 6"><path d="M0 0l5 6 5-6z"/></svg></div>
     <div id="authBtns" style="display:flex;gap:8px;">
-      <button style="background:none;border:1px solid rgba(255,255,255,.15);color:rgba(200,215,230,.8);
-        padding:6px 16px;border-radius:6px;font-size:13px;cursor:pointer;transition:.2s;"
+      <button style="background:none;border:1px solid rgba(255,255,255,.15);color:rgba(200,215,230,.8);padding:6px 16px;border-radius:6px;font-size:13px;cursor:pointer;transition:.2s;"
         onmouseover="this.style.borderColor='#00b4d8';this.style.color='#00b4d8'"
         onmouseout="this.style.borderColor='rgba(255,255,255,.15)';this.style.color='rgba(200,215,230,.8)'"
         onclick="openModal('login')">Войти</button>
@@ -180,44 +119,6 @@ footer strong{color:#e2e8f0;}
   </div>
 </nav>
 
-<!-- Products -->
-<section id="products">
-  <!-- CS2 -->
-  <div style="position:relative;height:320px;overflow:hidden;display:flex;align-items:center;">
-    <div style="position:absolute;inset:0;background:url('../loader/cs2.jpg') center/cover no-repeat;"></div>
-    <div style="position:absolute;inset:0;background:linear-gradient(to right,rgba(200,80,20,.85) 0%,rgba(180,60,10,.6) 40%,rgba(0,0,0,0) 100%);"></div>
-    <div style="position:relative;z-index:1;padding:0 60px;max-width:500px;">
-      <h2 style="font-size:32px;font-weight:900;color:#fff;margin-bottom:10px;">Counter-Strike 2</h2>
-      <p style="font-size:14px;color:rgba(255,255,255,.75);margin-bottom:24px;">Neverlоse for CS2. Available now.</p>
-      <a href="#" style="display:inline-block;background:#c0392b;color:#fff;border:none;
-        padding:11px 28px;font-size:12px;font-weight:700;letter-spacing:1.5px;
-        text-transform:uppercase;text-decoration:none;cursor:pointer;transition:.2s;"
-        onmouseover="this.style.background='#e74c3c'" onmouseout="this.style.background='#c0392b'">
-        MORE INFO / BUY
-      </a>
-    </div>
-  </div>
-
-  <!-- CS:GO -->
-  <div style="position:relative;height:320px;overflow:hidden;display:flex;align-items:center;justify-content:flex-end;">
-    <div style="position:absolute;inset:0;background:url('../loader/csgo.jpg') center/cover no-repeat;filter:brightness(.6) saturate(.9);"></div>
-    <div style="position:absolute;inset:0;background:linear-gradient(to right,rgba(0,0,0,0) 0%,rgba(10,60,120,.7) 50%,rgba(10,50,110,.9) 100%);"></div>
-    <div style="position:relative;z-index:1;padding:0 60px;max-width:560px;text-align:right;">
-      <h2 style="font-size:32px;font-weight:900;color:#fff;margin-bottom:10px;">Counter-Strike: Global Offensive</h2>
-      <p style="font-size:13px;color:rgba(255,255,255,.75);margin-bottom:24px;line-height:1.6;">
-        Neverlоse для CS:GO позволит вам полностью поменять внешний вид игры по своему вкусу.<br>
-        Меняйте скины на оружие, включайте ночной режим или просто перекрасьте стены – все на ваш вкус!
-      </p>
-      <a href="#" style="display:inline-block;background:transparent;color:#fff;
-        border:2px solid #00b4d8;padding:10px 26px;font-size:12px;font-weight:700;
-        letter-spacing:1.5px;text-transform:uppercase;text-decoration:none;cursor:pointer;transition:.2s;"
-        onmouseover="this.style.background='#00b4d8'" onmouseout="this.style.background='transparent'">
-        MORE INFO / BUY
-      </a>
-    </div>
-  </div>
-</section>
-
 <!-- Hero -->
 <section class="hero">
   <div class="hero-bg"></div>
@@ -231,42 +132,7 @@ footer strong{color:#e2e8f0;}
   <div class="scroll-hint"></div>
 </section>
 
-<!-- Products -->
-<section id="products">
-  <!-- CS2 -->
-  <div style="position:relative;height:320px;overflow:hidden;display:flex;align-items:center;">
-    <div style="position:absolute;inset:0;background:url('../loader/cs2.jpg') center/cover no-repeat;"></div>
-    <div style="position:absolute;inset:0;background:linear-gradient(to right,rgba(200,80,20,.85) 0%,rgba(180,60,10,.6) 40%,rgba(0,0,0,0) 100%);"></div>
-    <div style="position:relative;z-index:1;padding:0 60px;max-width:500px;">
-      <h2 style="font-size:32px;font-weight:900;color:#fff;margin-bottom:10px;">Counter-Strike 2</h2>
-      <p style="font-size:14px;color:rgba(255,255,255,.75);margin-bottom:24px;">Neverlоse for CS2. Available now.</p>
-      <a href="#" style="display:inline-block;background:#c0392b;color:#fff;border:none;
-        padding:11px 28px;font-size:12px;font-weight:700;letter-spacing:1.5px;
-        text-transform:uppercase;text-decoration:none;cursor:pointer;transition:.2s;"
-        onmouseover="this.style.background='#e74c3c'" onmouseout="this.style.background='#c0392b'">
-        MORE INFO / BUY
-      </a>
-    </div>
-  </div>
-  <!-- CS:GO -->
-  <div style="position:relative;height:320px;overflow:hidden;display:flex;align-items:center;justify-content:flex-end;">
-    <div style="position:absolute;inset:0;background:url('../loader/csgo.jpg') center/cover no-repeat;filter:brightness(.6) saturate(.9);"></div>
-    <div style="position:absolute;inset:0;background:linear-gradient(to right,rgba(0,0,0,0) 0%,rgba(10,60,120,.7) 50%,rgba(10,50,110,.9) 100%);"></div>
-    <div style="position:relative;z-index:1;padding:0 60px;max-width:560px;text-align:right;">
-      <h2 style="font-size:32px;font-weight:900;color:#fff;margin-bottom:10px;">Counter-Strike: Global Offensive</h2>
-      <p style="font-size:13px;color:rgba(255,255,255,.75);margin-bottom:24px;line-height:1.6;">
-        Neverlоse для CS:GO позволит вам полностью поменять внешний вид игры по своему вкусу.<br>
-        Меняйте скины на оружие, включайте ночной режим или просто перекрасьте стены – все на ваш вкус!
-      </p>
-      <a href="#" style="display:inline-block;background:transparent;color:#fff;
-        border:2px solid #00b4d8;padding:10px 26px;font-size:12px;font-weight:700;
-        letter-spacing:1.5px;text-transform:uppercase;text-decoration:none;cursor:pointer;transition:.2s;"
-        onmouseover="this.style.background='#00b4d8'" onmouseout="this.style.background='transparent'">
-        MORE INFO / BUY
-      </a>
-    </div>
-  </div>
-</section>
+<!-- Features -->
 <div id="features" class="section">
   <div class="section-title">Всё что нужно</div>
   <div class="section-sub">Полный набор функций для доминирования в каждом матче</div>
@@ -280,27 +146,33 @@ footer strong{color:#e2e8f0;}
   </div>
 </div>
 
-<!-- Pricing -->
-<div id="pricing" class="section">
-  <div class="section-title">Простые цены</div>
-  <div class="section-sub">Бесплатно навсегда. Без скрытых платежей.</div>
-  <div class="price-wrap">
-    <div class="price-card">
-      <div style="color:#00b4d8;font-size:13px;font-weight:700;">БЕСПЛАТНО <span class="badge">LIFETIME</span></div>
-      <div class="price-tag">Free</div>
-      <div class="price-period">Пожизненный доступ</div>
-      <ul class="price-features">
-        <li>Полный ragebot</li>
-        <li>Anti-aim</li>
-        <li>Все визуалы</li>
-        <li>Lua скрипты</li>
-        <li>Обновления навсегда</li>
-        <li>Поддержка сообщества</li>
-      </ul>
-      <button class="modal-btn" onclick="getLifetime()">Получить бесплатно</button>
+<!-- Products -->
+<section id="products">
+  <div style="padding:60px 40px 0;text-align:center;">
+    <div class="section-title">Наши продукты</div>
+    <div class="section-sub" style="margin-bottom:0;">Выберите игру</div>
+  </div>
+  <div style="position:relative;height:320px;overflow:hidden;display:flex;align-items:center;margin-top:40px;">
+    <div style="position:absolute;inset:0;background:url('../loader/cs2.jpg') center/cover no-repeat;"></div>
+    <div style="position:absolute;inset:0;background:linear-gradient(to right,rgba(200,80,20,.88) 0%,rgba(180,60,10,.65) 45%,rgba(0,0,0,0) 100%);"></div>
+    <div style="position:relative;z-index:1;padding:0 60px;max-width:500px;">
+      <h2 style="font-size:32px;font-weight:900;color:#fff;margin-bottom:10px;">Counter-Strike 2</h2>
+      <p style="font-size:14px;color:rgba(255,255,255,.75);margin-bottom:24px;">Neverlоse for CS2. Available now.</p>
+      <a href="#" style="display:inline-block;background:#c0392b;color:#fff;padding:11px 28px;font-size:12px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;text-decoration:none;transition:.2s;"
+        onmouseover="this.style.background='#e74c3c'" onmouseout="this.style.background='#c0392b'">MORE INFO / BUY</a>
     </div>
   </div>
-</div>
+  <div style="position:relative;height:320px;overflow:hidden;display:flex;align-items:center;justify-content:flex-end;">
+    <div style="position:absolute;inset:0;background:url('../loader/csgo.jpg') center/cover no-repeat;filter:brightness(.6) saturate(.9);"></div>
+    <div style="position:absolute;inset:0;background:linear-gradient(to right,rgba(0,0,0,0) 0%,rgba(10,60,120,.7) 50%,rgba(10,50,110,.92) 100%);"></div>
+    <div style="position:relative;z-index:1;padding:0 60px;max-width:560px;text-align:right;">
+      <h2 style="font-size:32px;font-weight:900;color:#fff;margin-bottom:10px;">Counter-Strike: Global Offensive</h2>
+      <p style="font-size:13px;color:rgba(255,255,255,.75);margin-bottom:24px;line-height:1.6;">Neverlоse для CS:GO позволит вам полностью поменять внешний вид игры по своему вкусу.<br>Меняйте скины на оружие, включайте ночной режим или просто перекрасьте стены – все на ваш вкус!</p>
+      <a href="#" style="display:inline-block;background:transparent;color:#fff;border:2px solid #00b4d8;padding:10px 26px;font-size:12px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;text-decoration:none;transition:.2s;"
+        onmouseover="this.style.background='#00b4d8'" onmouseout="this.style.background='transparent'">MORE INFO / BUY</a>
+    </div>
+  </div>
+</section>
 
 <footer>
   <strong>NEVERLOSE</strong> &copy; 2020–2026 &nbsp;·&nbsp;
@@ -308,7 +180,6 @@ footer strong{color:#e2e8f0;}
   <a href="https://docs-csgo.neverlose.cc/" style="color:#00b4d8;text-decoration:none;">API Docs</a>
 </footer>
 
-<!-- Auth Modal -->
 <div class="modal-overlay" id="authModal">
   <div class="modal">
     <button class="modal-close" onclick="closeModal()">×</button>
@@ -317,16 +188,14 @@ footer strong{color:#e2e8f0;}
       <button class="tab" id="tabRegister" onclick="switchTab('register')">Регистрация</button>
     </div>
     <div id="loginForm">
-      <h2>С возвращением</h2>
-      <p>Войдите в свой аккаунт</p>
+      <h2>С возвращением</h2><p>Войдите в свой аккаунт</p>
       <div class="form-group"><label>ЛОГИН</label><input id="loginUser" type="text" placeholder="Введите логин"></div>
       <div class="form-group"><label>ПАРОЛЬ</label><input id="loginPass" type="password" placeholder="Введите пароль"></div>
       <div class="form-error" id="loginError"></div>
       <button class="modal-btn" onclick="doLogin()">Войти</button>
     </div>
     <div id="registerForm" style="display:none;">
-      <h2>Создать аккаунт</h2>
-      <p>Присоединяйтесь к тысячам игроков</p>
+      <h2>Создать аккаунт</h2><p>Присоединяйтесь к тысячам игроков</p>
       <div class="form-group"><label>ЛОГИН</label><input id="regUser" type="text" placeholder="Выберите логин"></div>
       <div class="form-group"><label>EMAIL</label><input id="regEmail" type="email" placeholder="your@email.com"></div>
       <div class="form-group"><label>ПАРОЛЬ</label><input id="regPass" type="password" placeholder="Минимум 6 символов"></div>
@@ -336,7 +205,6 @@ footer strong{color:#e2e8f0;}
     </div>
   </div>
 </div>
-
 <div class="toast" id="toast"></div>
 
 <script>
@@ -345,18 +213,13 @@ function saveUsers(u){ localStorage.setItem('nl_users',JSON.stringify(u)); }
 function getSession(){ return localStorage.getItem('nl_session'); }
 function setSession(u){ localStorage.setItem('nl_session',u); }
 function clearSession(){ localStorage.removeItem('nl_session'); }
-
 function updateNav(){
   const s=getSession();
   document.getElementById('authBtns').style.display=s?'none':'flex';
   document.getElementById('userMenu').style.display=s?'block':'none';
-  if(s){ document.getElementById('userNameDisplay').textContent=s; }
+  if(s) document.getElementById('userNameDisplay').textContent=s;
 }
-
-function openModal(tab){
-  document.getElementById('authModal').classList.add('active');
-  switchTab(tab||'login');
-}
+function openModal(tab){ document.getElementById('authModal').classList.add('active'); switchTab(tab||'login'); }
 function closeModal(){ document.getElementById('authModal').classList.remove('active'); }
 function switchTab(t){
   document.getElementById('loginForm').style.display=t==='login'?'block':'none';
@@ -364,97 +227,46 @@ function switchTab(t){
   document.getElementById('tabLogin').className='tab'+(t==='login'?' active':'');
   document.getElementById('tabRegister').className='tab'+(t==='register'?' active':'');
 }
-
 function doLogin(){
-  const u=document.getElementById('loginUser').value.trim();
-  const p=document.getElementById('loginPass').value;
-  const err=document.getElementById('loginError');
-  const users=getUsers();
+  const u=document.getElementById('loginUser').value.trim(), p=document.getElementById('loginPass').value;
+  const err=document.getElementById('loginError'), users=getUsers();
   if(!u||!p){err.textContent='Заполните все поля.';err.style.display='block';return;}
   if(!users[u]||users[u].pass!==p){err.textContent='Неверный логин или пароль.';err.style.display='block';return;}
-  err.style.display='none';
-  setSession(u); updateNav(); closeModal();
-  showToast('Добро пожаловать, '+u+'!','success');
+  err.style.display='none'; setSession(u); updateNav(); closeModal(); showToast('Добро пожаловать, '+u+'!','success');
 }
-
 function doRegister(){
-  const u=document.getElementById('regUser').value.trim();
-  const e=document.getElementById('regEmail').value.trim();
-  const p=document.getElementById('regPass').value;
-  const err=document.getElementById('regError');
-  const suc=document.getElementById('regSuccess');
+  const u=document.getElementById('regUser').value.trim(), e=document.getElementById('regEmail').value.trim(), p=document.getElementById('regPass').value;
+  const err=document.getElementById('regError'), suc=document.getElementById('regSuccess');
   if(!u||!e||!p){err.textContent='Заполните все поля.';err.style.display='block';suc.style.display='none';return;}
   if(p.length<6){err.textContent='Пароль минимум 6 символов.';err.style.display='block';return;}
   const users=getUsers();
   if(users[u]){err.textContent='Логин уже занят.';err.style.display='block';return;}
-  users[u]={pass:p,email:e,created:Date.now()};
-  saveUsers(users); err.style.display='none';
-  suc.textContent='Аккаунт создан! Входим...';suc.style.display='block';
+  users[u]={pass:p,email:e,created:Date.now()}; saveUsers(users); err.style.display='none';
+  suc.textContent='Аккаунт создан! Входим...'; suc.style.display='block';
   setTimeout(()=>{ setSession(u); updateNav(); closeModal(); showToast('Добро пожаловать, '+u+'!','success'); },1000);
 }
-
 function toggleDropdown(){
-  const m=document.getElementById('userDropdownMenu');
-  const c=document.getElementById('ddChevron');
-  m.classList.toggle('open');
-  c.textContent=m.classList.contains('open')?'▴':'▾';
+  const m=document.getElementById('userDropdownMenu'), c=document.getElementById('ddChevron');
+  m.classList.toggle('open'); c.textContent=m.classList.contains('open')?'▴':'▾';
 }
-// Close dropdown on outside click
 document.addEventListener('click',function(e){
   const um=document.getElementById('userMenu');
-  if(um && !um.contains(e.target)){
-    document.getElementById('userDropdownMenu').classList.remove('open');
-    document.getElementById('ddChevron').textContent='▾';
-  }
+  if(um&&!um.contains(e.target)){ document.getElementById('userDropdownMenu').classList.remove('open'); document.getElementById('ddChevron').textContent='▾'; }
 });
-
-function logout(){
-  const u=getSession(); clearSession(); updateNav();
-  showToast('До свидания, '+u+'!','success');
-}
-
-function showToast(msg,type){
-  const t=document.getElementById('toast');
-  t.textContent=msg; t.className='toast '+(type||'');
-  t.classList.add('show');
-  setTimeout(()=>t.classList.remove('show'),3000);
-}
-
-function getLifetime(){
-  if(!getSession()){ openModal('register'); return; }
-  const a=document.createElement('a');
-  a.href='../Release/loader.exe'; a.download='loader.exe'; a.click();
-  showToast('Скачивание loader.exe...','success');
-}
-
-document.getElementById('authModal').addEventListener('click',function(e){
-  if(e.target===this) closeModal();
-});
-
+function logout(){ const u=getSession(); clearSession(); updateNav(); showToast('До свидания, '+u+'!','success'); }
+function showToast(msg,type){ const t=document.getElementById('toast'); t.textContent=msg; t.className='toast '+(type||''); t.classList.add('show'); setTimeout(()=>t.classList.remove('show'),3000); }
+document.getElementById('authModal').addEventListener('click',function(e){ if(e.target===this) closeModal(); });
 window.addEventListener('load', updateNav);
 </script>
-
 <script>
 (function(){
-  const canvas=document.getElementById('smokeCanvas');
-  if(!canvas) return;
+  const canvas=document.getElementById('smokeCanvas'); if(!canvas) return;
   const ctx=canvas.getContext('2d');
   function resize(){ canvas.width=canvas.offsetWidth; canvas.height=canvas.offsetHeight; }
   resize(); window.addEventListener('resize',resize);
-  function makeBrush(r){
-    const oc=document.createElement('canvas'); oc.width=oc.height=r*2;
-    const og=oc.getContext('2d');
-    const g=og.createRadialGradient(r,r,0,r,r,r);
-    g.addColorStop(0,'rgba(160,190,215,.16)'); g.addColorStop(.4,'rgba(140,175,205,.09)'); g.addColorStop(1,'rgba(120,160,195,0)');
-    og.fillStyle=g; og.beginPath(); og.arc(r,r,r,0,Math.PI*2); og.fill(); return oc;
-  }
+  function makeBrush(r){ const oc=document.createElement('canvas'); oc.width=oc.height=r*2; const og=oc.getContext('2d'); const g=og.createRadialGradient(r,r,0,r,r,r); g.addColorStop(0,'rgba(160,190,215,.16)'); g.addColorStop(.4,'rgba(140,175,205,.09)'); g.addColorStop(1,'rgba(120,160,195,0)'); og.fillStyle=g; og.beginPath(); og.arc(r,r,r,0,Math.PI*2); og.fill(); return oc; }
   const SIZES=[110,170,230,290]; const brushes=SIZES.map(makeBrush);
-  class P{
-    constructor(){ this.reset(true); }
-    reset(init){ this.x=Math.random()*canvas.width; this.y=init?Math.random()*canvas.height:canvas.height+60; this.bi=Math.floor(Math.random()*brushes.length); this.r=SIZES[this.bi]; this.vx=(Math.random()-.5)*.28; this.vy=-(0.12+Math.random()*.22); this.alpha=0; this.ta=.3+Math.random()*.3; this.fi=true; this.fo=false; this.life=0; this.ml=300+Math.random()*300; this.rot=Math.random()*Math.PI*2; this.rv=(Math.random()-.5)*.003; }
-    update(){ this.x+=this.vx; this.y+=this.vy; this.rot+=this.rv; this.life++; if(this.fi){this.alpha+=.004;if(this.alpha>=this.ta){this.alpha=this.ta;this.fi=false;}} if(this.life>this.ml*.7)this.fo=true; if(this.fo){this.alpha-=.003;if(this.alpha<=0){this.reset(false);return;}} }
-    draw(){ ctx.save(); ctx.globalAlpha=Math.max(0,this.alpha); ctx.translate(this.x,this.y); ctx.rotate(this.rot); ctx.drawImage(brushes[this.bi],-this.r,-this.r); ctx.restore(); }
-  }
+  class P{ constructor(){ this.reset(true); } reset(init){ this.x=Math.random()*canvas.width; this.y=init?Math.random()*canvas.height:canvas.height+60; this.bi=Math.floor(Math.random()*brushes.length); this.r=SIZES[this.bi]; this.vx=(Math.random()-.5)*.28; this.vy=-(0.12+Math.random()*.22); this.alpha=0; this.ta=.3+Math.random()*.3; this.fi=true; this.fo=false; this.life=0; this.ml=300+Math.random()*300; this.rot=Math.random()*Math.PI*2; this.rv=(Math.random()-.5)*.003; } update(){ this.x+=this.vx; this.y+=this.vy; this.rot+=this.rv; this.life++; if(this.fi){this.alpha+=.004;if(this.alpha>=this.ta){this.alpha=this.ta;this.fi=false;}} if(this.life>this.ml*.7)this.fo=true; if(this.fo){this.alpha-=.003;if(this.alpha<=0){this.reset(false);return;}} } draw(){ ctx.save(); ctx.globalAlpha=Math.max(0,this.alpha); ctx.translate(this.x,this.y); ctx.rotate(this.rot); ctx.drawImage(brushes[this.bi],-this.r,-this.r); ctx.restore(); } }
   const ps=Array.from({length:26},()=>new P());
   function loop(){ ctx.clearRect(0,0,canvas.width,canvas.height); ps.forEach(p=>{p.update();p.draw();}); requestAnimationFrame(loop); }
   loop();
