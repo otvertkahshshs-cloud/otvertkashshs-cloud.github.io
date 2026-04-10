@@ -1,236 +1,240 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ru">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>NEVERLOSE — CS:GO Cheat</title>
 <style>
 *{margin:0;padding:0;box-sizing:border-box;}
-:root{
-  --bg:#0d1117;--bg2:#0a0e13;--card:#141b24;--border:#1e2a38;
-  --accent:#3b82f6;--accent2:#6366f1;--green:#22c55e;--text:#e2e8f0;--gray:#64748b;
-}
-body{background:var(--bg);color:var(--text);font-family:'Segoe UI',sans-serif;overflow-x:hidden;}
-
-/* Animated background */
-.bg-glow{position:fixed;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:0;}
-.bg-glow::before{content:'';position:absolute;top:-200px;left:-200px;width:600px;height:600px;
-  background:radial-gradient(circle,rgba(59,130,246,.12) 0%,transparent 70%);
-  animation:float1 8s ease-in-out infinite;}
-.bg-glow::after{content:'';position:absolute;bottom:-200px;right:-200px;width:600px;height:600px;
-  background:radial-gradient(circle,rgba(99,102,241,.1) 0%,transparent 70%);
-  animation:float2 10s ease-in-out infinite;}
-@keyframes float1{0%,100%{transform:translate(0,0);}50%{transform:translate(80px,60px);}}
-@keyframes float2{0%,100%{transform:translate(0,0);}50%{transform:translate(-60px,-80px);}}
+body{background:#0d1117;color:#e2e8f0;font-family:'Segoe UI',sans-serif;overflow-x:hidden;}
 
 /* Navbar */
 nav{position:fixed;top:0;left:0;right:0;z-index:100;
-  background:rgba(13,17,23,.85);backdrop-filter:blur(12px);
-  border-bottom:1px solid var(--border);padding:0 40px;height:60px;
+  background:rgba(10,14,20,.75);backdrop-filter:blur(14px);
+  border-bottom:1px solid rgba(255,255,255,.06);
+  padding:0 32px;height:56px;
   display:flex;align-items:center;justify-content:space-between;}
-.nav-logo{font-size:22px;font-weight:900;letter-spacing:2px;
-  background:linear-gradient(135deg,#fff,#94a3b8);-webkit-background-clip:text;-webkit-text-fill-color:transparent;}
-.nav-links{display:flex;gap:28px;align-items:center;}
-.nav-links a{color:var(--gray);text-decoration:none;font-size:14px;transition:.2s;cursor:pointer;}
-.nav-links a:hover{color:var(--text);}
-.nav-btn{background:var(--accent);color:#fff;border:none;padding:8px 20px;border-radius:8px;
-  font-size:13px;font-weight:600;cursor:pointer;transition:.2s;}
-.nav-btn:hover{background:#2563eb;transform:translateY(-1px);}
-.nav-btn.outline{background:transparent;border:1px solid var(--border);color:var(--text);margin-right:8px;}
-.nav-btn.outline:hover{border-color:var(--accent);color:var(--accent);}
-#userMenu{display:none;align-items:center;gap:12px;}
-#userMenu span{font-size:13px;color:var(--gray);}
-#userMenu strong{color:var(--text);}
+
+.nav-left{display:flex;align-items:center;gap:40px;}
+.nav-logo{display:flex;align-items:center;gap:10px;text-decoration:none;}
+.nav-logo-icon{width:28px;height:28px;border:2px solid #00b4d8;border-radius:50%;
+  display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:900;color:#00b4d8;}
+.nav-logo-text{font-size:15px;font-weight:800;letter-spacing:2px;color:#fff;}
+
+.nav-links{display:flex;gap:4px;}
+.nav-links a{color:rgba(200,215,230,.75);text-decoration:none;font-size:13px;
+  padding:6px 14px;border-radius:6px;transition:.2s;cursor:pointer;}
+.nav-links a:hover{color:#fff;background:rgba(255,255,255,.06);}
+
+.nav-right{display:flex;align-items:center;gap:14px;}
+.nav-lang{display:flex;align-items:center;gap:5px;color:rgba(200,215,230,.75);
+  font-size:13px;cursor:pointer;padding:5px 10px;border-radius:6px;transition:.2s;}
+.nav-lang:hover{background:rgba(255,255,255,.06);color:#fff;}
+.nav-lang svg{width:14px;height:14px;fill:currentColor;}
+
+.nav-user{display:flex;align-items:center;gap:8px;cursor:pointer;
+  padding:4px 10px 4px 4px;border-radius:20px;transition:.2s;}
+.nav-user:hover{background:rgba(255,255,255,.06);}
+.nav-avatar{width:30px;height:30px;border-radius:50%;object-fit:cover;
+  border:2px solid rgba(0,180,216,.4);}
+.nav-username{font-size:13px;color:rgba(200,215,230,.85);}
+.nav-chevron{font-size:10px;color:rgba(200,215,230,.5);}
 
 /* Hero */
-.hero{position:relative;z-index:1;min-height:100vh;display:flex;align-items:center;
-  justify-content:center;text-align:center;padding:80px 20px 40px;}
-.hero-badge{display:inline-flex;align-items:center;gap:6px;background:rgba(59,130,246,.1);
-  border:1px solid rgba(59,130,246,.3);border-radius:20px;padding:6px 14px;
-  font-size:12px;color:var(--accent);margin-bottom:24px;}
-.hero-badge::before{content:'';width:6px;height:6px;background:var(--green);border-radius:50%;
-  animation:pulse 2s infinite;}
-@keyframes pulse{0%,100%{opacity:1;}50%{opacity:.4;}}
-.hero h1{font-size:clamp(48px,8vw,96px);font-weight:900;line-height:1;margin-bottom:20px;
-  background:linear-gradient(135deg,#fff 0%,#94a3b8 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;}
-.hero h1 span{background:linear-gradient(135deg,var(--accent),var(--accent2));-webkit-background-clip:text;-webkit-text-fill-color:transparent;}
-.hero p{font-size:18px;color:var(--gray);max-width:500px;margin:0 auto 36px;line-height:1.6;}
-.hero-btns{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;}
-.btn-primary{background:linear-gradient(135deg,var(--accent),var(--accent2));color:#fff;
-  border:none;padding:14px 32px;border-radius:10px;font-size:15px;font-weight:700;
-  cursor:pointer;transition:.3s;text-decoration:none;}
-.btn-primary:hover{transform:translateY(-2px);box-shadow:0 8px 30px rgba(59,130,246,.4);}
-.btn-secondary{background:transparent;color:var(--text);border:1px solid var(--border);
-  padding:14px 32px;border-radius:10px;font-size:15px;font-weight:600;cursor:pointer;transition:.3s;}
-.btn-secondary:hover{border-color:var(--accent);color:var(--accent);}
+.hero{position:relative;min-height:100vh;display:flex;align-items:center;
+  justify-content:center;text-align:center;overflow:hidden;}
 
-/* Stats */
-.stats{position:relative;z-index:1;display:flex;justify-content:center;gap:60px;
-  padding:40px 20px;flex-wrap:wrap;}
-.stat{text-align:center;}
-.stat-num{font-size:36px;font-weight:900;background:linear-gradient(135deg,#fff,var(--accent));
-  -webkit-background-clip:text;-webkit-text-fill-color:transparent;}
-.stat-label{font-size:13px;color:var(--gray);margin-top:4px;}
+.hero-bg{position:absolute;inset:0;
+  background:url('../loader/csgo.jpg') center/cover no-repeat;
+  filter:brightness(.5) saturate(.7);}
 
-/* Features */
-.section{position:relative;z-index:1;padding:80px 40px;max-width:1100px;margin:0 auto;}
-.section-title{text-align:center;font-size:36px;font-weight:800;margin-bottom:12px;}
-.section-sub{text-align:center;color:var(--gray);margin-bottom:48px;font-size:15px;}
-.features{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:20px;}
-.feature-card{background:var(--card);border:1px solid var(--border);border-radius:14px;
-  padding:28px;transition:.3s;cursor:default;}
-.feature-card:hover{border-color:rgba(59,130,246,.4);transform:translateY(-4px);
-  box-shadow:0 12px 40px rgba(0,0,0,.4);}
-.feature-icon{width:44px;height:44px;background:rgba(59,130,246,.1);border-radius:10px;
-  display:flex;align-items:center;justify-content:center;font-size:22px;margin-bottom:16px;}
-.feature-card h3{font-size:16px;font-weight:700;margin-bottom:8px;}
-.feature-card p{font-size:13px;color:var(--gray);line-height:1.6;}
+#smokeCanvas{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;z-index:1;}
+
+.hero-overlay{position:absolute;inset:0;z-index:2;
+  background:linear-gradient(to bottom,
+    rgba(8,12,18,.25) 0%,
+    rgba(8,12,18,.1) 35%,
+    rgba(8,12,18,.4) 100%);}
+
+.hero-content{position:relative;z-index:3;padding:0 20px;}
+
+.hero h1{font-size:clamp(52px,9vw,96px);font-weight:900;line-height:1;
+  color:#fff;letter-spacing:3px;text-shadow:0 2px 30px rgba(0,0,0,.6);
+  margin-bottom:18px;}
+.hero h1 span{color:#00b4d8;}
+
+.hero p{font-size:15px;color:rgba(200,215,230,.75);max-width:480px;
+  margin:0 auto 36px;line-height:1.7;font-weight:400;}
+.hero p strong{color:rgba(200,215,230,.95);font-weight:600;}
+
+.btn-primary{display:inline-block;background:transparent;color:#fff;
+  border:2px solid #00b4d8;padding:13px 40px;border-radius:3px;
+  font-size:12px;font-weight:700;cursor:pointer;transition:.3s;
+  text-decoration:none;letter-spacing:2px;text-transform:uppercase;}
+.btn-primary:hover{background:#00b4d8;box-shadow:0 0 28px rgba(0,180,216,.45);}
+
+/* Scroll indicator */
+.scroll-hint{position:absolute;bottom:32px;left:50%;transform:translateX(-50%);z-index:3;
+  width:26px;height:42px;border:2px solid rgba(255,255,255,.25);border-radius:13px;
+  display:flex;justify-content:center;padding-top:6px;}
+.scroll-hint::after{content:'';width:3px;height:7px;background:rgba(255,255,255,.5);
+  border-radius:2px;animation:sd 1.8s ease-in-out infinite;}
+@keyframes sd{0%{opacity:1;transform:translateY(0);}100%{opacity:0;transform:translateY(12px);}}
+
+/* Sections */
+.section{padding:80px 40px;max-width:1100px;margin:0 auto;}
+.section-title{text-align:center;font-size:34px;font-weight:800;margin-bottom:10px;}
+.section-sub{text-align:center;color:#64748b;margin-bottom:48px;font-size:14px;}
+
+.features{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:18px;}
+.feature-card{background:#141b24;border:1px solid #1e2a38;border-radius:12px;
+  padding:26px;transition:.3s;}
+.feature-card:hover{border-color:rgba(0,180,216,.35);transform:translateY(-3px);
+  box-shadow:0 10px 36px rgba(0,0,0,.4);}
+.feature-icon{font-size:24px;margin-bottom:14px;}
+.feature-card h3{font-size:15px;font-weight:700;margin-bottom:7px;}
+.feature-card p{font-size:13px;color:#64748b;line-height:1.6;}
 
 /* Pricing */
-.pricing{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:20px;}
-.price-card{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:32px;transition:.3s;}
-.price-card.featured{border-color:var(--accent);background:linear-gradient(135deg,rgba(59,130,246,.08),rgba(99,102,241,.08));}
-.price-card:hover{transform:translateY(-4px);}
-.price-tag{font-size:42px;font-weight:900;margin:16px 0 8px;}
-.price-tag span{font-size:16px;color:var(--gray);}
-.price-period{font-size:13px;color:var(--gray);margin-bottom:24px;}
-.price-features{list-style:none;margin-bottom:28px;}
-.price-features li{font-size:13px;color:var(--gray);padding:6px 0;border-bottom:1px solid var(--border);}
-.price-features li::before{content:'✓ ';color:var(--green);}
-.badge{display:inline-block;background:var(--accent);color:#fff;font-size:11px;
-  font-weight:700;padding:3px 10px;border-radius:20px;margin-left:8px;}
+.price-wrap{display:flex;justify-content:center;}
+.price-card{background:#141b24;border:1px solid #00b4d8;border-radius:14px;
+  padding:32px;max-width:320px;width:100%;
+  background:linear-gradient(135deg,rgba(0,180,216,.06),rgba(0,180,216,.02));}
+.price-tag{font-size:44px;font-weight:900;margin:14px 0 6px;}
+.price-period{font-size:13px;color:#64748b;margin-bottom:22px;}
+.price-features{list-style:none;margin-bottom:26px;}
+.price-features li{font-size:13px;color:#94a3b8;padding:6px 0;border-bottom:1px solid #1e2a38;}
+.price-features li::before{content:'✓ ';color:#22c55e;}
+.badge{display:inline-block;background:#00b4d8;color:#fff;font-size:10px;
+  font-weight:700;padding:2px 9px;border-radius:20px;margin-left:6px;}
+.modal-btn{width:100%;background:#00b4d8;color:#fff;border:none;
+  padding:12px;border-radius:8px;font-size:13px;font-weight:700;cursor:pointer;transition:.2s;}
+.modal-btn:hover{background:#0096b4;transform:translateY(-1px);}
 
 /* Modal */
 .modal-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.7);
   backdrop-filter:blur(4px);z-index:200;align-items:center;justify-content:center;}
 .modal-overlay.active{display:flex;}
-.modal{background:var(--card);border:1px solid var(--border);border-radius:16px;
-  padding:36px;width:100%;max-width:400px;position:relative;
-  animation:modalIn .2s ease;}
-@keyframes modalIn{from{opacity:0;transform:scale(.95);}to{opacity:1;transform:scale(1);}}
-.modal h2{font-size:22px;font-weight:800;margin-bottom:6px;}
-.modal p{font-size:13px;color:var(--gray);margin-bottom:24px;}
-.modal-close{position:absolute;top:16px;right:16px;background:none;border:none;
-  color:var(--gray);font-size:20px;cursor:pointer;transition:.2s;}
-.modal-close:hover{color:var(--text);}
-.form-group{margin-bottom:16px;}
-.form-group label{display:block;font-size:12px;color:var(--gray);margin-bottom:6px;font-weight:600;}
-.form-group input{width:100%;background:rgba(255,255,255,.04);border:1px solid var(--border);
-  border-radius:8px;padding:11px 14px;color:var(--text);font-size:14px;outline:none;transition:.2s;}
-.form-group input:focus{border-color:var(--accent);}
-.form-error{color:#ef4444;font-size:12px;margin-top:8px;display:none;}
-.form-success{color:var(--green);font-size:12px;margin-top:8px;display:none;}
-.modal-btn{width:100%;background:linear-gradient(135deg,var(--accent),var(--accent2));
-  color:#fff;border:none;padding:12px;border-radius:8px;font-size:14px;font-weight:700;
-  cursor:pointer;transition:.2s;margin-top:4px;}
-.modal-btn:hover{opacity:.9;transform:translateY(-1px);}
-.modal-switch{text-align:center;margin-top:16px;font-size:13px;color:var(--gray);}
-.modal-switch a{color:var(--accent);cursor:pointer;text-decoration:none;}
-.modal-switch a:hover{text-decoration:underline;}
-.tabs{display:flex;gap:4px;background:rgba(255,255,255,.04);border-radius:8px;padding:4px;margin-bottom:24px;}
-.tab{flex:1;padding:8px;border:none;background:none;color:var(--gray);font-size:13px;
-  font-weight:600;cursor:pointer;border-radius:6px;transition:.2s;}
-.tab.active{background:var(--accent);color:#fff;}
+.modal{background:#141b24;border:1px solid #1e2a38;border-radius:14px;
+  padding:32px;width:100%;max-width:380px;position:relative;animation:mIn .2s ease;}
+@keyframes mIn{from{opacity:0;transform:scale(.95);}to{opacity:1;transform:scale(1);}}
+.modal h2{font-size:20px;font-weight:800;margin-bottom:5px;}
+.modal p{font-size:13px;color:#64748b;margin-bottom:22px;}
+.modal-close{position:absolute;top:14px;right:16px;background:none;border:none;
+  color:#64748b;font-size:20px;cursor:pointer;}
+.modal-close:hover{color:#e2e8f0;}
+.form-group{margin-bottom:14px;}
+.form-group label{display:block;font-size:11px;color:#64748b;margin-bottom:5px;font-weight:600;letter-spacing:.5px;}
+.form-group input{width:100%;background:rgba(255,255,255,.04);border:1px solid #1e2a38;
+  border-radius:7px;padding:10px 13px;color:#e2e8f0;font-size:13px;outline:none;transition:.2s;}
+.form-group input:focus{border-color:#00b4d8;}
+.form-error{color:#ef4444;font-size:12px;margin-top:6px;display:none;}
+.form-success{color:#22c55e;font-size:12px;margin-top:6px;display:none;}
+.tabs{display:flex;gap:3px;background:rgba(255,255,255,.04);border-radius:7px;padding:3px;margin-bottom:22px;}
+.tab{flex:1;padding:7px;border:none;background:none;color:#64748b;font-size:13px;
+  font-weight:600;cursor:pointer;border-radius:5px;transition:.2s;}
+.tab.active{background:#00b4d8;color:#fff;}
 
-/* Footer */
-footer{position:relative;z-index:1;border-top:1px solid var(--border);padding:40px;
-  text-align:center;color:var(--gray);font-size:13px;}
-footer strong{color:var(--text);}
+footer{border-top:1px solid #1e2a38;padding:36px;text-align:center;color:#64748b;font-size:13px;}
+footer strong{color:#e2e8f0;}
 
-/* Toast */
-.toast{position:fixed;bottom:24px;right:24px;background:var(--card);border:1px solid var(--border);
-  border-radius:10px;padding:14px 20px;font-size:13px;z-index:300;
-  transform:translateY(80px);opacity:0;transition:.3s;}
+.toast{position:fixed;bottom:22px;right:22px;background:#141b24;border:1px solid #1e2a38;
+  border-radius:9px;padding:12px 18px;font-size:13px;z-index:300;
+  transform:translateY(70px);opacity:0;transition:.3s;}
 .toast.show{transform:translateY(0);opacity:1;}
-.toast.success{border-color:var(--green);color:var(--green);}
+.toast.success{border-color:#22c55e;color:#22c55e;}
 .toast.error{border-color:#ef4444;color:#ef4444;}
 </style>
 </head>
 <body>
-<div class="bg-glow"></div>
 
 <!-- Navbar -->
 <nav>
-  <div class="nav-logo">NL</div>
-  <div class="nav-links">
-    <a onclick="scrollTo('features')">Features</a>
-    <a onclick="scrollTo('pricing')">Pricing</a>
-    <a href="https://forum.neverlose.cc/" target="_blank">Community</a>
-    <a href="https://docs-csgo.neverlose.cc/" target="_blank">Docs</a>
-  </div>
-  <div>
-    <div id="authBtns">
-      <button class="nav-btn outline" onclick="openModal('login')">Sign In</button>
-      <button class="nav-btn" onclick="openModal('register')">Get Started</button>
+  <div class="nav-left">
+    <a class="nav-logo" href="#">
+      <div class="nav-logo-icon">NL</div>
+      <span class="nav-logo-text">NEVERLOSE</span>
+    </a>
+    <div class="nav-links">
+      <a href="#">Главная</a>
+      <a href="https://forum.neverlose.cc/" target="_blank">Форум</a>
+      <a href="#">Маркет</a>
+      <a href="#">Помощь</a>
     </div>
-    <div id="userMenu">
-      <span>Welcome, <strong id="userNameDisplay"></strong></span>
-      <button class="nav-btn outline" onclick="logout()">Sign Out</button>
+  </div>
+  <div class="nav-right">
+    <div class="nav-lang">
+      Ru
+      <svg viewBox="0 0 10 6"><path d="M0 0l5 6 5-6z"/></svg>
+    </div>
+    <div id="authBtns" style="display:flex;gap:8px;">
+      <button style="background:none;border:1px solid rgba(255,255,255,.15);color:rgba(200,215,230,.8);
+        padding:6px 16px;border-radius:6px;font-size:13px;cursor:pointer;transition:.2s;"
+        onmouseover="this.style.borderColor='#00b4d8';this.style.color='#00b4d8'"
+        onmouseout="this.style.borderColor='rgba(255,255,255,.15)';this.style.color='rgba(200,215,230,.8)'"
+        onclick="openModal('login')">Войти</button>
+    </div>
+    <div id="userMenu" style="display:none;" class="nav-user" onclick="logout()">
+      <img class="nav-avatar" id="userAvatar" src="../loader/avatar.png" onerror="this.src='data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 30 30%22><circle cx=%2215%22 cy=%2215%22 r=%2215%22 fill=%22%23334155%22/></svg>'">
+      <span class="nav-username" id="userNameDisplay">User</span>
+      <span class="nav-chevron">▾</span>
     </div>
   </div>
 </nav>
 
 <!-- Hero -->
 <section class="hero">
-  <div>
-    <div class="hero-badge">🟢 Servers Online — 1,337 users active</div>
-    <h1>NEVER<span>LOSE</span></h1>
-    <p>The most advanced CS:GO cheat. Undetected, feature-rich, and trusted by thousands of players worldwide.</p>
-    <div class="hero-btns">
-      <button class="btn-primary" onclick="openModal('register')">Get Started — Free Trial</button>
-      <button class="btn-secondary" onclick="scrollTo('features')">View Features</button>
-    </div>
+  <div class="hero-bg"></div>
+  <canvas id="smokeCanvas"></canvas>
+  <div class="hero-overlay"></div>
+  <div class="hero-content">
+    <h1>NEVERLOSE.<span>CC</span></h1>
+    <p>Уникальное ПО с огромным <strong>функционалом</strong> и отзывчивой командой техподдержки.</p>
+    <a class="btn-primary" href="#features">НАШИ ПРОДУКТЫ</a>
   </div>
+  <div class="scroll-hint"></div>
 </section>
-
-<!-- Stats -->
-<div class="stats">
-  <div class="stat"><div class="stat-num" id="c1">0</div><div class="stat-label">Active Users</div></div>
-  <div class="stat"><div class="stat-num" id="c2">0</div><div class="stat-label">Features</div></div>
-  <div class="stat"><div class="stat-num" id="c3">0</div><div class="stat-label">Days Undetected</div></div>
-  <div class="stat"><div class="stat-num" id="c4">0</div><div class="stat-label">Updates / Month</div></div>
-</div>
 
 <!-- Features -->
 <div id="features" class="section">
-  <div class="section-title">Everything you need</div>
-  <div class="section-sub">Packed with features to dominate every match</div>
+  <div class="section-title">Всё что нужно</div>
+  <div class="section-sub">Полный набор функций для доминирования в каждом матче</div>
   <div class="features">
-    <div class="feature-card"><div class="feature-icon">🎯</div><h3>Ragebot</h3><p>Fully configurable aimbot with resolver, multi-point, and hitchance settings for maximum damage.</p></div>
-    <div class="feature-card"><div class="feature-icon">🛡️</div><h3>Anti-Aim</h3><p>Advanced desync and pitch/yaw manipulation to make you nearly impossible to hit.</p></div>
-    <div class="feature-card"><div class="feature-icon">👁️</div><h3>Visuals</h3><p>ESP, glow, chams, and a fully customizable AMOLED-ready interface with smooth animations.</p></div>
-    <div class="feature-card"><div class="feature-icon">🤖</div><h3>Legitbot</h3><p>Humanized aimbot with smooth aim, backtrack, and triggerbot for legit gameplay.</p></div>
-    <div class="feature-card"><div class="feature-icon">🌍</div><h3>World ESP</h3><p>See grenades, bomb, dropped weapons and more through walls with full customization.</p></div>
-    <div class="feature-card"><div class="feature-icon">📜</div><h3>Lua Scripts</h3><p>Extend functionality with community Lua scripts. Full API access for developers.</p></div>
+    <div class="feature-card"><div class="feature-icon">🎯</div><h3>Ragebot</h3><p>Полностью настраиваемый аимбот с резолвером, мультипоинтом и настройками шанса попадания.</p></div>
+    <div class="feature-card"><div class="feature-icon">🛡️</div><h3>Anti-Aim</h3><p>Продвинутый десинк и манипуляция pitch/yaw — сделает тебя почти невозможным для попадания.</p></div>
+    <div class="feature-card"><div class="feature-icon">👁️</div><h3>Visuals</h3><p>ESP, glow, chams и полностью настраиваемый интерфейс с плавными анимациями.</p></div>
+    <div class="feature-card"><div class="feature-icon">🤖</div><h3>Legitbot</h3><p>Гуманизированный аимбот со сглаживанием, бэктреком и триггерботом для легит-игры.</p></div>
+    <div class="feature-card"><div class="feature-icon">🌍</div><h3>World ESP</h3><p>Видь гранаты, бомбу, оружие сквозь стены с полной кастомизацией.</p></div>
+    <div class="feature-card"><div class="feature-icon">📜</div><h3>Lua Scripts</h3><p>Расширяй функционал скриптами сообщества. Полный доступ к API для разработчиков.</p></div>
   </div>
 </div>
 
 <!-- Pricing -->
 <div id="pricing" class="section">
-  <div class="section-title">Simple pricing</div>
-  <div class="section-sub">Free forever. No hidden fees.</div>
-  <div style="display:flex;justify-content:center;">
-    <div class="price-card featured" style="max-width:340px;width:100%;">
-      <div style="color:var(--accent);font-size:13px;font-weight:700;">FREE <span class="badge">LIFETIME</span></div>
+  <div class="section-title">Простые цены</div>
+  <div class="section-sub">Бесплатно навсегда. Без скрытых платежей.</div>
+  <div class="price-wrap">
+    <div class="price-card">
+      <div style="color:#00b4d8;font-size:13px;font-weight:700;">БЕСПЛАТНО <span class="badge">LIFETIME</span></div>
       <div class="price-tag">Free</div>
-      <div class="price-period">Lifetime access</div>
+      <div class="price-period">Пожизненный доступ</div>
       <ul class="price-features">
-        <li>Full ragebot</li>
+        <li>Полный ragebot</li>
         <li>Anti-aim</li>
-        <li>All visuals</li>
-        <li>Lua scripts</li>
-        <li>Lifetime updates</li>
-        <li>Community support</li>
+        <li>Все визуалы</li>
+        <li>Lua скрипты</li>
+        <li>Обновления навсегда</li>
+        <li>Поддержка сообщества</li>
       </ul>
-      <button class="modal-btn" onclick="getLifetime()">Get Lifetime — Free</button>
+      <button class="modal-btn" onclick="getLifetime()">Получить бесплатно</button>
     </div>
   </div>
 </div>
 
 <footer>
   <strong>NEVERLOSE</strong> &copy; 2020–2026 &nbsp;·&nbsp;
-  <a href="https://forum.neverlose.cc/" style="color:var(--accent);text-decoration:none;">Community</a> &nbsp;·&nbsp;
-  <a href="https://docs-csgo.neverlose.cc/" style="color:var(--accent);text-decoration:none;">API Docs</a>
+  <a href="https://forum.neverlose.cc/" style="color:#00b4d8;text-decoration:none;">Форум</a> &nbsp;·&nbsp;
+  <a href="https://docs-csgo.neverlose.cc/" style="color:#00b4d8;text-decoration:none;">API Docs</a>
 </footer>
 
 <!-- Auth Modal -->
@@ -238,30 +242,26 @@ footer strong{color:var(--text);}
   <div class="modal">
     <button class="modal-close" onclick="closeModal()">×</button>
     <div class="tabs">
-      <button class="tab active" id="tabLogin" onclick="switchTab('login')">Sign In</button>
-      <button class="tab" id="tabRegister" onclick="switchTab('register')">Register</button>
+      <button class="tab active" id="tabLogin" onclick="switchTab('login')">Войти</button>
+      <button class="tab" id="tabRegister" onclick="switchTab('register')">Регистрация</button>
     </div>
-
-    <!-- Login -->
     <div id="loginForm">
-      <h2>Welcome back</h2>
-      <p>Sign in to your account</p>
-      <div class="form-group"><label>USERNAME</label><input id="loginUser" type="text" placeholder="Enter username"></div>
-      <div class="form-group"><label>PASSWORD</label><input id="loginPass" type="password" placeholder="Enter password"></div>
+      <h2>С возвращением</h2>
+      <p>Войдите в свой аккаунт</p>
+      <div class="form-group"><label>ЛОГИН</label><input id="loginUser" type="text" placeholder="Введите логин"></div>
+      <div class="form-group"><label>ПАРОЛЬ</label><input id="loginPass" type="password" placeholder="Введите пароль"></div>
       <div class="form-error" id="loginError"></div>
-      <button class="modal-btn" onclick="doLogin()">Sign In</button>
+      <button class="modal-btn" onclick="doLogin()">Войти</button>
     </div>
-
-    <!-- Register -->
     <div id="registerForm" style="display:none;">
-      <h2>Create account</h2>
-      <p>Join thousands of players</p>
-      <div class="form-group"><label>USERNAME</label><input id="regUser" type="text" placeholder="Choose username"></div>
+      <h2>Создать аккаунт</h2>
+      <p>Присоединяйтесь к тысячам игроков</p>
+      <div class="form-group"><label>ЛОГИН</label><input id="regUser" type="text" placeholder="Выберите логин"></div>
       <div class="form-group"><label>EMAIL</label><input id="regEmail" type="email" placeholder="your@email.com"></div>
-      <div class="form-group"><label>PASSWORD</label><input id="regPass" type="password" placeholder="Min 6 characters"></div>
+      <div class="form-group"><label>ПАРОЛЬ</label><input id="regPass" type="password" placeholder="Минимум 6 символов"></div>
       <div class="form-error" id="regError"></div>
       <div class="form-success" id="regSuccess"></div>
-      <button class="modal-btn" onclick="doRegister()">Create Account</button>
+      <button class="modal-btn" onclick="doRegister()">Создать аккаунт</button>
     </div>
   </div>
 </div>
@@ -269,7 +269,6 @@ footer strong{color:var(--text);}
 <div class="toast" id="toast"></div>
 
 <script>
-// Auth system using localStorage
 function getUsers(){ return JSON.parse(localStorage.getItem('nl_users')||'{}'); }
 function saveUsers(u){ localStorage.setItem('nl_users',JSON.stringify(u)); }
 function getSession(){ return localStorage.getItem('nl_session'); }
@@ -280,16 +279,14 @@ function updateNav(){
   const s=getSession();
   document.getElementById('authBtns').style.display=s?'none':'flex';
   document.getElementById('userMenu').style.display=s?'flex':'none';
-  if(s) document.getElementById('userNameDisplay').textContent=s;
+  if(s){ document.getElementById('userNameDisplay').textContent=s; }
 }
 
 function openModal(tab){
   document.getElementById('authModal').classList.add('active');
   switchTab(tab||'login');
 }
-function closeModal(){
-  document.getElementById('authModal').classList.remove('active');
-}
+function closeModal(){ document.getElementById('authModal').classList.remove('active'); }
 function switchTab(t){
   document.getElementById('loginForm').style.display=t==='login'?'block':'none';
   document.getElementById('registerForm').style.display=t==='register'?'block':'none';
@@ -302,11 +299,11 @@ function doLogin(){
   const p=document.getElementById('loginPass').value;
   const err=document.getElementById('loginError');
   const users=getUsers();
-  if(!u||!p){err.textContent='Fill all fields.';err.style.display='block';return;}
-  if(!users[u]||users[u].pass!==p){err.textContent='Invalid username or password.';err.style.display='block';return;}
+  if(!u||!p){err.textContent='Заполните все поля.';err.style.display='block';return;}
+  if(!users[u]||users[u].pass!==p){err.textContent='Неверный логин или пароль.';err.style.display='block';return;}
   err.style.display='none';
   setSession(u); updateNav(); closeModal();
-  showToast('Welcome back, '+u+'!','success');
+  showToast('Добро пожаловать, '+u+'!','success');
 }
 
 function doRegister(){
@@ -315,19 +312,19 @@ function doRegister(){
   const p=document.getElementById('regPass').value;
   const err=document.getElementById('regError');
   const suc=document.getElementById('regSuccess');
-  if(!u||!e||!p){err.textContent='Fill all fields.';err.style.display='block';suc.style.display='none';return;}
-  if(p.length<6){err.textContent='Password must be at least 6 characters.';err.style.display='block';return;}
+  if(!u||!e||!p){err.textContent='Заполните все поля.';err.style.display='block';suc.style.display='none';return;}
+  if(p.length<6){err.textContent='Пароль минимум 6 символов.';err.style.display='block';return;}
   const users=getUsers();
-  if(users[u]){err.textContent='Username already taken.';err.style.display='block';return;}
+  if(users[u]){err.textContent='Логин уже занят.';err.style.display='block';return;}
   users[u]={pass:p,email:e,created:Date.now()};
   saveUsers(users); err.style.display='none';
-  suc.textContent='Account created! Signing you in...';suc.style.display='block';
-  setTimeout(()=>{ setSession(u); updateNav(); closeModal(); showToast('Welcome, '+u+'!','success'); },1000);
+  suc.textContent='Аккаунт создан! Входим...';suc.style.display='block';
+  setTimeout(()=>{ setSession(u); updateNav(); closeModal(); showToast('Добро пожаловать, '+u+'!','success'); },1000);
 }
 
 function logout(){
   const u=getSession(); clearSession(); updateNav();
-  showToast('Signed out. See you soon, '+u+'!','success');
+  showToast('До свидания, '+u+'!','success');
 }
 
 function showToast(msg,type){
@@ -339,32 +336,71 @@ function showToast(msg,type){
 
 function getLifetime(){
   if(!getSession()){ openModal('register'); return; }
-  // Download loader.exe
   const a=document.createElement('a');
-  a.href='loader.exe';
-  a.download='loader.exe';
-  a.click();
-  showToast('Downloading loader.exe...','success');
+  a.href='../Release/loader.exe'; a.download='loader.exe'; a.click();
+  showToast('Скачивание loader.exe...','success');
 }
 
-// Close modal on overlay click
 document.getElementById('authModal').addEventListener('click',function(e){
   if(e.target===this) closeModal();
 });
 
-// Animated counters
-function animCount(id,target,suffix){
-  let v=0; const el=document.getElementById(id);
-  const step=Math.ceil(target/60);
-  const t=setInterval(()=>{ v=Math.min(v+step,target); el.textContent=v.toLocaleString()+(suffix||''); if(v>=target)clearInterval(t); },16);
-}
-window.addEventListener('load',()=>{
-  animCount('c1',12847); animCount('c2',150,'+'); animCount('c3',847); animCount('c4',8,'+');
-  updateNav();
-});
+window.addEventListener('load', updateNav);
+</script>
+
+<script>
+// Smoke particle system
+(function(){
+  const canvas=document.getElementById('smokeCanvas');
+  const ctx=canvas.getContext('2d');
+  function resize(){ canvas.width=canvas.offsetWidth; canvas.height=canvas.offsetHeight; }
+  resize(); window.addEventListener('resize',resize);
+
+  function makeBrush(r){
+    const oc=document.createElement('canvas'); oc.width=oc.height=r*2;
+    const og=oc.getContext('2d');
+    const g=og.createRadialGradient(r,r,0,r,r,r);
+    g.addColorStop(0,'rgba(160,190,215,.16)');
+    g.addColorStop(.4,'rgba(140,175,205,.09)');
+    g.addColorStop(1,'rgba(120,160,195,0)');
+    og.fillStyle=g; og.beginPath(); og.arc(r,r,r,0,Math.PI*2); og.fill();
+    return oc;
+  }
+  const SIZES=[110,170,230,290];
+  const brushes=SIZES.map(makeBrush);
+
+  class P{
+    constructor(){ this.reset(true); }
+    reset(init){
+      this.x=Math.random()*canvas.width;
+      this.y=init?Math.random()*canvas.height:canvas.height+60;
+      this.bi=Math.floor(Math.random()*brushes.length);
+      this.r=SIZES[this.bi];
+      this.vx=(Math.random()-.5)*.28;
+      this.vy=-(0.12+Math.random()*.22);
+      this.alpha=0; this.ta=.3+Math.random()*.3;
+      this.fi=true; this.fo=false;
+      this.life=0; this.ml=300+Math.random()*300;
+      this.rot=Math.random()*Math.PI*2;
+      this.rv=(Math.random()-.5)*.003;
+    }
+    update(){
+      this.x+=this.vx; this.y+=this.vy; this.rot+=this.rv; this.life++;
+      if(this.fi){ this.alpha+=.004; if(this.alpha>=this.ta){this.alpha=this.ta;this.fi=false;} }
+      if(this.life>this.ml*.7) this.fo=true;
+      if(this.fo){ this.alpha-=.003; if(this.alpha<=0){this.reset(false);return;} }
+    }
+    draw(){
+      ctx.save(); ctx.globalAlpha=Math.max(0,this.alpha);
+      ctx.translate(this.x,this.y); ctx.rotate(this.rot);
+      ctx.drawImage(brushes[this.bi],-this.r,-this.r);
+      ctx.restore();
+    }
+  }
+  const ps=Array.from({length:26},()=>new P());
+  function loop(){ ctx.clearRect(0,0,canvas.width,canvas.height); ps.forEach(p=>{p.update();p.draw();}); requestAnimationFrame(loop); }
+  loop();
+})();
 </script>
 </body>
 </html>
-
-<!-- scrollTo fix -->
-<script>function scrollTo(id){ document.getElementById(id).scrollIntoView({behavior:'smooth'}); }</script>
