@@ -69,17 +69,42 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;background:rgba(10,14,20,.75
 footer{border-top:1px solid #1e2a38;padding:36px;text-align:center;color:#64748b;font-size:13px;}
 footer strong{color:#e2e8f0;}
 .user-dropdown{position:relative;}
-.user-dropdown-menu{display:none;position:absolute;top:calc(100% + 10px);right:0;background:#fff;border-radius:10px;min-width:185px;box-shadow:0 8px 32px rgba(0,0,0,.35);overflow:hidden;z-index:200;}
+.user-dropdown-menu{display:none;position:absolute;top:calc(100% + 8px);right:0;background:#fff;border-radius:12px;min-width:200px;box-shadow:0 8px 24px rgba(0,0,0,.25);overflow:hidden;z-index:200;}
 .user-dropdown-menu.open{display:block;animation:ddIn .15s ease;}
-@keyframes ddIn{from{opacity:0;transform:translateY(-6px);}to{opacity:1;transform:translateY(0);}}
-.user-dropdown-menu a{display:flex;align-items:center;gap:11px;padding:13px 18px;color:#1a1a2e;font-size:14px;text-decoration:none;cursor:pointer;transition:.15s;font-weight:500;}
-.user-dropdown-menu a:hover{background:#f0f4f8;}
-.user-dropdown-menu a .dd-icon{font-size:16px;width:20px;text-align:center;}
-.user-dropdown-menu hr{border:none;border-top:1px solid #e5e7eb;margin:2px 0;}
+@keyframes ddIn{from{opacity:0;transform:translateY(-5px);}to{opacity:1;transform:translateY(0);}}
+.user-dropdown-menu a{display:flex;align-items:center;gap:12px;padding:14px 20px;color:#2d3748;font-size:15px;text-decoration:none;cursor:pointer;transition:.15s;font-weight:400;background:#fff;}
+.user-dropdown-menu a:hover{background:#00b4d8;color:#fff;}
+.user-dropdown-menu a .dd-icon{font-size:18px;width:22px;text-align:center;opacity:.75;}
+.user-dropdown-menu a:hover .dd-icon{opacity:1;}
+.user-dropdown-menu hr{border:none;border-top:1px solid #e8ecf0;margin:0;}
 .toast{position:fixed;bottom:22px;right:22px;background:#141b24;border:1px solid #1e2a38;border-radius:9px;padding:12px 18px;font-size:13px;z-index:300;transform:translateY(70px);opacity:0;transition:.3s;}
 .toast.show{transform:translateY(0);opacity:1;}
 .toast.success{border-color:#22c55e;color:#22c55e;}
 .toast.error{border-color:#ef4444;color:#ef4444;}
+
+/* Product page overlay */
+#productPage{display:none;position:fixed;inset:0;z-index:150;background:#1c1c1c;overflow-y:auto;}
+#productPage.active{display:block;}
+.pp-hero{position:relative;height:240px;overflow:hidden;display:flex;align-items:flex-end;padding-bottom:32px;padding-top:56px;}
+.pp-hero-bg{position:absolute;inset:0;background:url('../loader/csgo.jpg') center/cover no-repeat;filter:brightness(.5) saturate(.7);}
+.pp-hero-overlay{position:absolute;inset:0;background:linear-gradient(to right,rgba(20,14,8,.9) 0%,rgba(15,10,5,.6) 50%,rgba(0,0,0,.15) 100%);}
+.pp-hero-content{position:relative;z-index:1;padding:0 48px;}
+.pp-hero-content p{font-size:15px;color:rgba(255,255,255,.6);margin-bottom:2px;}
+.pp-hero-content h1{font-size:38px;font-weight:900;color:#fff;line-height:1.1;}
+.pp-main{max-width:700px;margin:0 auto;padding:44px 20px 60px;}
+.pp-box{background:#1e2530;border:1px solid #2a3340;border-radius:10px;padding:28px 32px;}
+.pp-box-title{font-size:13px;font-weight:600;color:#94a3b8;letter-spacing:.5px;text-transform:uppercase;margin-bottom:20px;padding-bottom:14px;border-bottom:1px solid #2a3340;}
+.pp-card{background:#141b24;border:1px solid #2a3340;border-radius:7px;padding:22px 26px;display:flex;align-items:center;justify-content:space-between;cursor:pointer;transition:.2s;}
+.pp-card:hover{border-color:#00b4d8;background:#0d1e2e;}
+.pp-price{font-size:26px;font-weight:800;color:#00b4d8;margin-bottom:3px;}
+.pp-desc{font-size:13px;color:#64748b;}
+.pp-btn{background:#00b4d8;color:#fff;border:none;padding:10px 26px;border-radius:5px;font-size:13px;font-weight:700;cursor:pointer;transition:.2s;}
+.pp-btn:hover{background:#0096b4;}
+.pp-note{text-align:center;margin-top:28px;font-size:12px;color:#555;line-height:1.9;}
+.pp-note a{color:#00b4d8;text-decoration:none;}
+.pp-note strong{color:#888;}
+.pp-back{position:absolute;top:70px;left:20px;z-index:2;background:rgba(0,0,0,.4);border:1px solid rgba(255,255,255,.2);color:#fff;padding:6px 14px;border-radius:6px;font-size:13px;cursor:pointer;transition:.2s;}
+.pp-back:hover{background:rgba(0,0,0,.6);}
 </style>
 </head>
 <body>
@@ -168,7 +193,7 @@ footer strong{color:#e2e8f0;}
     <div style="position:relative;z-index:1;padding:0 60px;max-width:560px;text-align:right;">
       <h2 style="font-size:32px;font-weight:900;color:#fff;margin-bottom:10px;">Counter-Strike: Global Offensive</h2>
       <p style="font-size:13px;color:rgba(255,255,255,.75);margin-bottom:24px;line-height:1.6;">Neverlоse для CS:GO позволит вам полностью поменять внешний вид игры по своему вкусу.<br>Меняйте скины на оружие, включайте ночной режим или просто перекрасьте стены – все на ваш вкус!</p>
-      <a href="csgo.html" style="display:inline-block;background:transparent;color:#fff;border:2px solid #00b4d8;padding:10px 26px;font-size:12px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;text-decoration:none;transition:.2s;"
+      <a href="#" onclick="showProduct();return false;" style="display:inline-block;background:transparent;color:#fff;border:2px solid #00b4d8;padding:10px 26px;font-size:12px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;text-decoration:none;transition:.2s;"
         onmouseover="this.style.background='#00b4d8'" onmouseout="this.style.background='transparent'">MORE INFO / BUY</a>
     </div>
   </div>
@@ -205,6 +230,36 @@ footer strong{color:#e2e8f0;}
     </div>
   </div>
 </div>
+<!-- Product page -->
+<div id="productPage">
+  <div class="pp-hero">
+    <div class="pp-hero-bg"></div>
+    <div class="pp-hero-overlay"></div>
+    <button class="pp-back" onclick="hideProduct()">← Назад</button>
+    <div class="pp-hero-content">
+      <p>Neverlose for</p>
+      <h1>Counter-Strike: Global Offensive</h1>
+    </div>
+  </div>
+  <div class="pp-main">
+    <div class="pp-box">
+      <div class="pp-box-title">Select your plan</div>
+      <div class="pp-card" onclick="buyProduct()">
+        <div>
+          <div class="pp-price">Free</div>
+          <div class="pp-desc">Пожизненный доступ · Lifetime</div>
+        </div>
+        <button class="pp-btn" onclick="buyProduct();event.stopPropagation()">Получить</button>
+      </div>
+    </div>
+    <div class="pp-note">
+      Системные требования: Windows 10/11 1803+ x64. Requires always active internet connection.<br>
+      Автоматическая покупка. Сразу после оплаты вы сможете скачать продукт на странице профиля. Нужна помощь? <a href="#">Нажмите сюда!</a><br>
+      <strong>Пожалуйста, ознакомьтесь с <a href="#">правилами безопасной оплаты покупки</a>.</strong>
+    </div>
+  </div>
+</div>
+
 <div class="toast" id="toast"></div>
 
 <script>
@@ -257,6 +312,8 @@ function logout(){ const u=getSession(); clearSession(); updateNav(); showToast(
 function showToast(msg,type){ const t=document.getElementById('toast'); t.textContent=msg; t.className='toast '+(type||''); t.classList.add('show'); setTimeout(()=>t.classList.remove('show'),3000); }
 document.getElementById('authModal').addEventListener('click',function(e){ if(e.target===this) closeModal(); });
 window.addEventListener('load', updateNav);
+function buyProduct(){ if(!getSession()){hideProduct();openModal('register');return;} showToast('Скачайте loader.exe из Release папки проекта','success'); }
+function getLifetime(){ if(!getSession()){openModal('register');return;} showToast('Скачайте loader.exe из Release папки проекта','success'); }
 </script>
 <script>
 (function(){
