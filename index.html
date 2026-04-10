@@ -25,7 +25,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;background:rgba(10,14,20,.75
 .nav-username{font-size:13px;color:rgba(200,215,230,.85);}
 .nav-chevron{font-size:10px;color:rgba(200,215,230,.5);}
 .hero{position:relative;min-height:100vh;display:flex;align-items:center;justify-content:center;text-align:center;overflow:hidden;}
-.hero-bg{position:absolute;inset:0;background:url('../loader/csgo.jpg') center/cover no-repeat;filter:brightness(.5) saturate(.7);}
+.hero-bg{position:absolute;inset:0;background:linear-gradient(135deg,#0a0e14 0%,#0d1520 50%,#0a1018 100%);}
 #smokeCanvas{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;z-index:1;}
 .hero-overlay{position:absolute;inset:0;z-index:2;background:linear-gradient(to bottom,rgba(8,12,18,.25) 0%,rgba(8,12,18,.1) 35%,rgba(8,12,18,.4) 100%);}
 .hero-content{position:relative;z-index:3;padding:0 20px;}
@@ -122,7 +122,7 @@ footer strong{color:#e2e8f0;}
 .prof-social a{color:#4a5568;transition:.2s;}
 .prof-social a:hover{color:#00b4d8;}
 .pp-hero{position:relative;height:240px;overflow:hidden;display:flex;align-items:flex-end;padding-bottom:32px;padding-top:56px;}
-.pp-hero-bg{position:absolute;inset:0;background:url('../loader/csgo.jpg') center/cover no-repeat;filter:brightness(.5) saturate(.7);}
+.pp-hero-bg{position:absolute;inset:0;background:linear-gradient(135deg,#0a1a3a 0%,#0d2550 50%,#081530 100%);}
 .pp-hero-overlay{position:absolute;inset:0;background:linear-gradient(to right,rgba(20,14,8,.9) 0%,rgba(15,10,5,.6) 50%,rgba(0,0,0,.15) 100%);}
 .pp-hero-content{position:relative;z-index:1;padding:0 48px;}
 .pp-hero-content p{font-size:15px;color:rgba(255,255,255,.6);margin-bottom:2px;}
@@ -214,7 +214,7 @@ footer strong{color:#e2e8f0;}
     <div class="section-sub" style="margin-bottom:0;">Выберите игру</div>
   </div>
   <div style="position:relative;height:320px;overflow:hidden;display:flex;align-items:center;margin-top:40px;">
-    <div style="position:absolute;inset:0;background:url('../loader/cs2.jpg') center/cover no-repeat;"></div>
+    <div style="position:absolute;inset:0;background:linear-gradient(135deg,#8b2500 0%,#c0390b 40%,#6b1a00 100%);"></div>
     <div style="position:absolute;inset:0;background:linear-gradient(to right,rgba(200,80,20,.88) 0%,rgba(180,60,10,.65) 45%,rgba(0,0,0,0) 100%);"></div>
     <div style="position:relative;z-index:1;padding:0 60px;max-width:500px;">
       <h2 style="font-size:32px;font-weight:900;color:#fff;margin-bottom:10px;">Counter-Strike 2</h2>
@@ -224,7 +224,7 @@ footer strong{color:#e2e8f0;}
     </div>
   </div>
   <div style="position:relative;height:320px;overflow:hidden;display:flex;align-items:center;justify-content:flex-end;">
-    <div style="position:absolute;inset:0;background:url('../loader/csgo.jpg') center/cover no-repeat;filter:brightness(.6) saturate(.9);"></div>
+    <div style="position:absolute;inset:0;background:linear-gradient(135deg,#0a1a3a 0%,#0d2550 40%,#081530 100%);"></div>
     <div style="position:absolute;inset:0;background:linear-gradient(to right,rgba(0,0,0,0) 0%,rgba(10,60,120,.7) 50%,rgba(10,50,110,.92) 100%);"></div>
     <div style="position:relative;z-index:1;padding:0 60px;max-width:560px;text-align:right;">
       <h2 style="font-size:32px;font-weight:900;color:#fff;margin-bottom:10px;">Counter-Strike: Global Offensive</h2>
@@ -402,6 +402,9 @@ function doRegister(){
   if(p.length<6){err.textContent='Пароль минимум 6 символов.';err.style.display='block';return;}
   const users=getUsers();
   if(users[u]){err.textContent='Логин уже занят.';err.style.display='block';return;}
+  // Check email uniqueness
+  const emailTaken=Object.values(users).some(x=>x.email&&x.email.toLowerCase()===e.toLowerCase());
+  if(emailTaken){err.textContent='Этот email уже используется.';err.style.display='block';return;}
   users[u]={pass:p,email:e,created:Date.now()}; saveUsers(users); err.style.display='none';
   suc.textContent='Аккаунт создан! Входим...'; suc.style.display='block';
   setTimeout(()=>{ setSession(u); updateNav(); closeModal(); showToast('Добро пожаловать, '+u+'!','success'); },1000);
