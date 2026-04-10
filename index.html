@@ -367,53 +367,6 @@ footer strong{color:#e2e8f0;}
 </div>
 
 <div class="toast" id="toast"></div>
-function doChangePass(){
-  const s=getSession(); if(!s) return;
-  const old=document.getElementById('cpOld').value, n1=document.getElementById('cpNew').value, n2=document.getElementById('cpNew2').value;
-  const err=document.getElementById('cpError'), users=getUsers();
-  if(!users[s]||users[s].pass!==old){err.textContent='Неверный текущий пароль.';err.style.display='block';return;}
-  if(n1.length<6){err.textContent='Минимум 6 символов.';err.style.display='block';return;}
-  if(n1!==n2){err.textContent='Пароли не совпадают.';err.style.display='block';return;}
-  users[s].pass=n1; saveUsers(users); err.style.display='none';
-  document.getElementById('changePassModal').classList.remove('active');
-  showToast('Пароль изменён!','success');
-  ['cpOld','cpNew','cpNew2'].forEach(id=>document.getElementById(id).value='');
-}
-function sendChat(){
-  const s=getSession(); if(!s) return;
-  const inp=document.getElementById('chatInput'), msg=inp.value.trim(); if(!msg) return;
-  inp.value='';
-  const box=document.getElementById('chatMessages');
-  if(box.children.length===1&&box.children[0].style.textAlign==='center') box.innerHTML='';
-  const now=new Date(), time=now.getHours()+':'+String(now.getMinutes()).padStart(2,'0');
-  const av=document.getElementById('userAvatar').src;
-  const d=document.createElement('div');
-  d.style.cssText='display:flex;gap:10px;align-items:flex-start;';
-  d.innerHTML=`<img src="${av}" style="width:28px;height:28px;border-radius:50%;object-fit:cover;flex-shrink:0;">
-    <div><span style="font-size:12px;font-weight:700;color:#00b4d8;">${s}</span>
-    <span style="font-size:11px;color:#4a5568;margin-left:6px;">${time}</span>
-    <div style="font-size:13px;color:#cbd5e1;margin-top:2px;">${msg.replace(/</g,'&lt;')}</div></div>`;
-  box.appendChild(d); box.scrollTop=box.scrollHeight;
-  const chats=JSON.parse(localStorage.getItem('nl_chat')||'[]');
-  chats.push({user:s,msg,time,av}); if(chats.length>100)chats.shift();
-  localStorage.setItem('nl_chat',JSON.stringify(chats));
-}
-function loadChat(){
-  const box=document.getElementById('chatMessages'); if(!box) return;
-  const chats=JSON.parse(localStorage.getItem('nl_chat')||'[]'); if(!chats.length) return;
-  box.innerHTML='';
-  chats.forEach(c=>{
-    const d=document.createElement('div'); d.style.cssText='display:flex;gap:10px;align-items:flex-start;';
-    d.innerHTML=`<img src="${c.av||''}" style="width:28px;height:28px;border-radius:50%;object-fit:cover;flex-shrink:0;" onerror="this.style.display='none'">
-      <div><span style="font-size:12px;font-weight:700;color:#00b4d8;">${c.user}</span>
-      <span style="font-size:11px;color:#4a5568;margin-left:6px;">${c.time}</span>
-      <div style="font-size:13px;color:#cbd5e1;margin-top:2px;">${c.msg.replace(/</g,'&lt;')}</div></div>`;
-    box.appendChild(d);
-  }); box.scrollTop=box.scrollHeight;
-}
-const _orig=showProfile;
-showProfile=function(){ _orig(); setTimeout(loadChat,150); };
-</script>
 
 <script>
 function getUsers(){ return JSON.parse(localStorage.getItem('nl_users')||'{}'); }
@@ -425,11 +378,7 @@ function updateNav(){
   const s=getSession();
   document.getElementById('authBtns').style.display=s?'none':'flex';
   document.getElementById('userMenu').style.display=s?'block':'none';
-  if(s){
-    document.getElementById('userNameDisplay').textContent=s;
-    const savedAv=localStorage.getItem('nl_avatar_'+s);
-    if(savedAv) document.getElementById('userAvatar').src=savedAv;
-  }
+  if(s){ document.getElementById('userNameDisplay').textContent=s; const av=localStorage.getItem('nl_avatar_'+s); if(av) document.getElementById('userAvatar').src=av; }
 }
 function openModal(tab){ document.getElementById('authModal').classList.add('active'); switchTab(tab||'login'); }
 function closeModal(){ document.getElementById('authModal').classList.remove('active'); }
@@ -469,36 +418,66 @@ function logout(){ const u=getSession(); clearSession(); updateNav(); showToast(
 function showToast(msg,type){ const t=document.getElementById('toast'); t.textContent=msg; t.className='toast '+(type||''); t.classList.add('show'); setTimeout(()=>t.classList.remove('show'),3000); }
 document.getElementById('authModal').addEventListener('click',function(e){ if(e.target===this) closeModal(); });
 window.addEventListener('load', updateNav);
+function showProduct(){ const el=document.getElementById('productPage'); el.classList.add('active'); el.classList.remove('closing'); requestAnimationFrame(()=>requestAnimationFrame(()=>el.classList.add('visible'))); window.scrollTo(0,0); }
+function hideProduct(){ const el=document.getElementById('productPage'); el.classList.add('closing'); el.classList.remove('visible'); setTimeout(()=>{ el.classList.remove('active','closing'); },300); }
 function buyProduct(){ if(!getSession()){hideProduct();openModal('register');return;} showToast('Скачайте loader.exe из Release папки проекта','success'); }
 function getLifetime(){ if(!getSession()){openModal('register');return;} showToast('Скачайте loader.exe из Release папки проекта','success'); }
-function showProduct(){
-  const el=document.getElementById('productPage');
-  el.classList.add('active'); el.classList.remove('closing');
-  requestAnimationFrame(()=>requestAnimationFrame(()=>el.classList.add('visible')));
-  window.scrollTo(0,0);
+function showChangePass(){ document.getElementById('changePassModal').classList.add('active'); }
+function doChangePass(){
+  const s=getSession(); if(!s) return;
+  const old=document.getElementById('cpOld').value, n1=document.getElementById('cpNew').value, n2=document.getElementById('cpNew2').value;
+  const err=document.getElementById('cpError'), users=getUsers();
+  if(!users[s]||users[s].pass!==old){err.textContent='Неверный текущий пароль.';err.style.display='block';return;}
+  if(n1.length<6){err.textContent='Минимум 6 символов.';err.style.display='block';return;}
+  if(n1!==n2){err.textContent='Пароли не совпадают.';err.style.display='block';return;}
+  users[s].pass=n1; saveUsers(users); err.style.display='none';
+  document.getElementById('changePassModal').classList.remove('active');
+  showToast('Пароль изменён!','success');
+  ['cpOld','cpNew','cpNew2'].forEach(id=>document.getElementById(id).value='');
 }
-function hideProduct(){
-  const el=document.getElementById('productPage');
-  el.classList.add('closing'); el.classList.remove('visible');
-  setTimeout(()=>{ el.classList.remove('active','closing'); },300);
+function sendChat(){
+  const s=getSession(); if(!s) return;
+  const inp=document.getElementById('chatInput'), msg=inp.value.trim(); if(!msg) return;
+  inp.value='';
+  const box=document.getElementById('chatMessages');
+  if(box.children.length===1&&box.children[0].style.textAlign==='center') box.innerHTML='';
+  const now=new Date(), time=now.getHours()+':'+String(now.getMinutes()).padStart(2,'0');
+  const av=document.getElementById('userAvatar').src;
+  const d=document.createElement('div'); d.style.cssText='display:flex;gap:10px;align-items:flex-start;';
+  d.innerHTML='<img src="'+av+'" style="width:28px;height:28px;border-radius:50%;object-fit:cover;flex-shrink:0;">'
+    +'<div><span style="font-size:12px;font-weight:700;color:#00b4d8;">'+s+'</span>'
+    +'<span style="font-size:11px;color:#4a5568;margin-left:6px;">'+time+'</span>'
+    +'<div style="font-size:13px;color:#cbd5e1;margin-top:2px;">'+msg.replace(/</g,'&lt;')+'</div></div>';
+  box.appendChild(d); box.scrollTop=box.scrollHeight;
+  const chats=JSON.parse(localStorage.getItem('nl_chat')||'[]');
+  chats.push({user:s,msg,time,av}); if(chats.length>100)chats.shift();
+  localStorage.setItem('nl_chat',JSON.stringify(chats));
 }
 function showProfile(){
   const s=getSession(); if(!s) return;
   document.getElementById('profName').textContent=s;
-  const users=getUsers();
-  if(users[s]) document.getElementById('profEmail').textContent=users[s].email||'';
-  const savedAv=localStorage.getItem('nl_avatar_'+s);
-  if(savedAv){ document.getElementById('profAvatar').src=savedAv; document.getElementById('userAvatar').src=savedAv; }
+  const users=getUsers(); if(users[s]) document.getElementById('profEmail').textContent=users[s].email||'';
+  const av=localStorage.getItem('nl_avatar_'+s);
+  if(av){ document.getElementById('profAvatar').src=av; document.getElementById('userAvatar').src=av; }
   const el=document.getElementById('profilePage');
   el.classList.add('active'); el.classList.remove('closing');
   requestAnimationFrame(()=>requestAnimationFrame(()=>el.classList.add('visible')));
   window.scrollTo(0,0);
+  setTimeout(function(){
+    var box=document.getElementById('chatMessages'); if(!box) return;
+    var chats=JSON.parse(localStorage.getItem('nl_chat')||'[]'); if(!chats.length) return;
+    box.innerHTML='';
+    chats.forEach(function(c){
+      var d=document.createElement('div'); d.style.cssText='display:flex;gap:10px;align-items:flex-start;';
+      d.innerHTML='<img src="'+(c.av||'')+'" style="width:28px;height:28px;border-radius:50%;object-fit:cover;flex-shrink:0;" onerror="this.style.display=\'none\'">'
+        +'<div><span style="font-size:12px;font-weight:700;color:#00b4d8;">'+c.user+'</span>'
+        +'<span style="font-size:11px;color:#4a5568;margin-left:6px;">'+c.time+'</span>'
+        +'<div style="font-size:13px;color:#cbd5e1;margin-top:2px;">'+c.msg.replace(/</g,'&lt;')+'</div></div>';
+      box.appendChild(d);
+    }); box.scrollTop=box.scrollHeight;
+  },150);
 }
-function hideProfile(){
-  const el=document.getElementById('profilePage');
-  el.classList.add('closing'); el.classList.remove('visible');
-  setTimeout(()=>{ el.classList.remove('active','closing'); },300);
-}
+function hideProfile(){ const el=document.getElementById('profilePage'); el.classList.add('closing'); el.classList.remove('visible'); setTimeout(()=>{ el.classList.remove('active','closing'); },300); }
 function changeAvatar(input){
   const file=input.files[0]; if(!file) return;
   const reader=new FileReader();
